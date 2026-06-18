@@ -1,0 +1,6 @@
+{
+  "name": "VITMAS Website",
+  "description": "The official high-fidelity website of VIT Student Chapter - Mathematical Association (VITMAS) featuring interactive designs for About, Events, Blogs, Team, FAQs, and a dynamic Contact interface.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
