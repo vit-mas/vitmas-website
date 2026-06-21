@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VIT MAS – Blogs</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Anton&family=Jomhuria&display=swap"
+        rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jockey+One&display=swap" rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #080010;
+            --surface: rgba(20, 14, 38, 0.3);
+            --purple: #a855f7;
+            --magenta: #c026d3;
+            --text: #e8e0f0;
+            --muted: #9580aa;
+            --card-border: #2a1a4a;
+            --nav-bg: rgba(13, 10, 20, 0.75);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 50% 45% at 100% 0%, rgba(196, 36, 217, 0.55) 0%, rgba(192, 38, 211, 0.25) 40%, transparent 65%),
+                radial-gradient(ellipse 50% 45% at 0% 100%, rgba(196, 36, 217, 0.55) 0%, rgba(192, 38, 211, 0.25) 40%, transparent 65%);
+            z-index: -1;
+        }
+
+        /* ── NAVIGATION ── */
+        nav {
+            position: static;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 40px;
+            background: transparent;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            border-bottom: none;
+        }
+
+        .nav-logo {
+            width: 123px;
+            height: 123px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+
+        .nav-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            width: 786px;
+            height: 73px;
+            gap: 4px;
+            background: rgba(20, 16, 31, 0.85);
+            border: 1px solid #ffffff;
+            border-radius: 31px;
+            padding: 6px 12px;
+            list-style: none;
+            flex-shrink: 0;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--muted);
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            padding: 10px 18px;
+            border-radius: 999px;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #fff;
+            background: rgba(168, 85, 247, 0.15);
+        }
+
+        .nav-links a.active {
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            text-decoration-color: var(--purple);
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--purple) 0%, var(--magenta) 100%);
+            color: #fff;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 17px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            width: 200.06px;
+            height: 63.68px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: all 0.2s ease;
+            box-shadow: 0 0 24px rgba(168, 85, 247, 0.45);
+            flex-shrink: 0;
+        }
+
+        .nav-cta:hover {
+            background: linear-gradient(135deg, var(--magenta) 0%, var(--purple) 100%);
+            box-shadow: 0 0 32px rgba(192, 38, 211, 0.6);
+        }
+
+        /* ── HERO ── */
+        .hero {
+            text-align: center;
+            padding: 80px 20px 40px;
+        }
+
+        .hero h1 {
+            font-family: "Jomhuria", "Anton", "Arial Narrow Bold", "Arial Black", sans-serif;
+            font-size: 260px;
+            line-height: 1;
+            letter-spacing: 13%;
+            font-weight: 400;
+            color: #ffffff;
+            text-transform: uppercase;
+            text-shadow: 6px 9px 17.7px rgba(212, 204, 204, 0.74);
+        }
+
+        /* ── BLOG SECTION ── */
+        .blogs-section {
+            max-width: 1240px;
+            width: 95%;
+            margin: 0 auto 80px;
+        }
+
+        .blogs-container {
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            background: var(--surface);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            overflow: hidden;
+        }
+
+        /* ── BLOG CARD ── */
+        .blog-card {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            align-items: center;
+            gap: 50px;
+            padding: 60px 50px;
+            border-bottom: 1px solid rgba(42, 26, 74, 0.4);
+        }
+
+        .blog-card:last-child {
+            border-bottom: none;
+        }
+
+        .blog-card.flip {
+            grid-template-columns: 1fr auto;
+        }
+
+        .blog-card.flip .blog-thumb-wrapper {
+            order: 2;
+        }
+
+        .blog-card.flip .blog-text {
+            order: 1;
+        }
+
+        /* No-image placeholder box */
+        .blog-thumb-wrapper {
+            position: relative;
+            padding-left: 12px;
+            padding-bottom: 12px;
+        }
+
+        .blog-thumb-wrapper::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: calc(100% - 12px);
+            height: calc(100% - 12px);
+            background: #501394;
+            border-radius: 10px;
+            z-index: 1;
+        }
+
+        .blog-thumb {
+            position: relative;
+            overflow: hidden;
+            width: 320px;
+            height: 240px;
+            border-radius: 10px;
+            z-index: 2;
+            background: #1a1228;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .blog-thumb.blog-thumb--full img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .blog-thumb .no-image-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--muted);
+            letter-spacing: 0.5px;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        /* ── BULGE SCROLL EFFECT ── */
+        /* Image and text each scale independently so the zoom feels grounded,
+           not like the whole card (incl. padding) is jumping around. */
+        .blog-thumb-wrapper,
+        .blog-text {
+            transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+            transform: scale(0.94);
+            will-change: transform;
+        }
+
+        .blog-card.in-view .blog-thumb-wrapper,
+        .blog-card.in-view .blog-text {
+            transform: scale(1.06);
+        }
+
+        /* ── TEXT CONTENT SIDE ── */
+        .blog-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .blog-text p {
+            font-family: "Jockey One", sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            color: #ffffff;
+            line-height: 1.9;
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+            text-align: justify;
+        }
+
+        @media (max-width: 950px) {
+            nav {
+                padding: 12px 20px;
+            }
+
+            .nav-logo {
+                width: 64px;
+                height: 64px;
+            }
+
+            .nav-cta {
+                width: 130px;
+                height: 44px;
+                font-size: 10px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 90px;
+            }
+
+            .blog-card,
+            .blog-card.flip {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                padding: 40px 24px;
+            }
+
+            .blog-card .blog-thumb-wrapper,
+            .blog-card.flip .blog-thumb-wrapper {
+                order: 1;
+                justify-self: center;
+            }
+
+            .blog-card .blog-text,
+            .blog-card.flip .blog-text {
+                order: 2;
+            }
+
+            .blog-text p {
+                text-align: left;
+                font-size: 14px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .blog-thumb-wrapper,
+            .blog-text {
+                transition: none;
+                transform: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="#" class="nav-logo"><img src="logo.png" alt="VIT MAS logo"></a>
+
+        <ul class="nav-links">
+            <li><a href="#">About</a></li>
+            <li><a href="#">Projects</a></li>
+            <li><a href="#">Events</a></li>
+            <li><a href="#" class="active">Blogs</a></li>
+            <li><a href="#">Team</a></li>
+            <li><a href="#">FAQ</a></li>
+        </ul>
+
+        <a href="#" class="nav-cta">Contact</a>
+    </nav>
+
+    <section class="hero">
+        <h1>BLOGS</h1>
+    </section>
+
+    <section class="blogs-section">
+        <div class="blogs-container">
+
+            <article class="blog-card">
+                <div class="blog-thumb-wrapper">
+                    <div class="blog-thumb blog-thumb--full">
+                        <img src="fotu 1.jpeg" alt="photo 1">
+                    </div>
+                </div>
+
+                <div class="blog-text">
+                    <p>If you've ever wondered how your phone knows exactly where you are — even as you zip through a
+                        city with spotty GPS — or how a self-driving car stays on course, you've already brushed up
+                        against the magic of Kalman filters. These humble algorithms are the unsung heroes behind much
+                        of our modern technology, powering everything from sensor data fusion in robotics to reliable
+                        navigation in our devices</p>
+                </div>
+            </article>
+
+            <article class="blog-card flip">
+                <div class="blog-thumb-wrapper">
+                    <div class="blog-thumb blog-thumb--full">
+                        <img src="fotu 2.jpeg" alt="photo 2">
+                    </div>
+                </div>
+
+                <div class="blog-text">
+                    <p>If you've ever wondered how your phone knows exactly where you are — even as you zip through a
+                        city with spotty GPS — or how a self-driving car stays on course, you've already brushed up
+                        against the magic of Kalman filters. These humble algorithms are the unsung heroes behind much
+                        of our modern technology, powering everything from sensor data fusion in robotics to reliable
+                        navigation in our devices</p>
+                </div>
+            </article>
+
+            <article class="blog-card">
+                <div class="blog-thumb-wrapper">
+                    <div class="blog-thumb">
+                        <span class="no-image-text">No image available</span>
+                    </div>
+                </div>
+
+                <div class="blog-text">
+                    <p>Every time your phone predicts the next word you're about to type, or a streaming service
+                        guesses what you'll watch next, there's a good chance a Markov chain is quietly working behind
+                        the scenes. These models capture how systems move from one state to another based purely on
+                        the present, not the past, making them deceptively simple yet remarkably powerful. From
+                        weather forecasting to detecting anomalies in user behavior, Markov chains turn uncertainty
+                        into something we can actually reason about</p>
+                </div>
+            </article>
+
+            <article class="blog-card flip">
+                <div class="blog-thumb-wrapper">
+                    <div class="blog-thumb">
+                        <span class="no-image-text">No image available</span>
+                    </div>
+                </div>
+
+                <div class="blog-text">
+                    <p>In a world generating data every second, the real challenge isn't collecting information, it's
+                        knowing which signals actually matter. Anomaly detection systems are built to spot the
+                        unusual amid oceans of the ordinary, flagging fraudulent transactions, unexpected network
+                        intrusions, or sudden shifts in user behavior before they escalate into real problems. The
+                        best systems blend statistical rigor with practical intuition, learning what normal looks
+                        like so they can reliably tell us when something isn't</p>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <script>
+        // Bulge-in when a card scrolls into view, bulge-out when it scrolls away.
+        const cards = document.querySelectorAll('.blog-card');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                entry.target.classList.toggle('in-view', entry.isIntersecting);
+            });
+        }, {
+            threshold: 0.35 // card is considered "in view" once 35% of it is visible
+        });
+
+        cards.forEach((card) => observer.observe(card));
+    </script>
+
+</body>
+
+</html>
