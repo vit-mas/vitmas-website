@@ -11,6 +11,7 @@ import Events from './pages/Events'
 import Team from './pages/Team'
 import Gallery from './pages/Gallery'
 import Contact from './pages/Contact'
+import FAQ from './pages/Faq'
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/team" element={<Team />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/faq" element={<FAQ />} />
         </Routes>
       </Layout>
     </Router>
