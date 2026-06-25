@@ -33,10 +33,11 @@ const events = [
 const EventCard = ({ event }) => {
   const borderColor = event.glowColor === 'fuchsia' ? 'border-fuchsia-500' : 'border-green-500';
   const shadowColor = event.glowColor === 'fuchsia' ? 'shadow-[0_0_20px_rgba(217,70,239,0.6)]' : 'shadow-[0_0_20px_rgba(34,197,94,0.6)]';
+  const hoverShadowColor = event.glowColor === 'fuchsia' ? 'hover:shadow-[0_0_32px_rgba(217,70,239,0.8)]' : 'hover:shadow-[0_0_32px_rgba(34,197,94,0.8)]';
   const buttonColor = event.glowColor === 'fuchsia' ? 'bg-fuchsia-600' : 'bg-green-600';
 
   return (
-    <div className={`relative group border-2 ${borderColor} ${shadowColor} rounded-xl overflow-hidden aspect-video`}>
+    <div className={`relative group border-2 ${borderColor} ${shadowColor} ${hoverShadowColor} rounded-xl overflow-hidden aspect-video transition-all duration-300 ease-out hover:-translate-y-2 hover:scale-[1.02]`}>
       <div className="absolute inset-0">
         <div className={`absolute inset-0 bg-gradient-to-br ${event.bgGradient}`}></div>
 
