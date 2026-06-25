@@ -50,8 +50,6 @@ export default function Navigation({ currentPath = "about", onNavigate }: Naviga
     if (onNavigate) {
       onNavigate(id);
     } else {
-      window.history.pushState(null, "", "/" + id);
-      window.dispatchEvent(new Event("popstate"));
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };

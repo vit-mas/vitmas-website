@@ -1,61 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Navigation from "./components/Navigation";
-import AboutSection from "./components/AboutSection";
-import ProjectsSection from "./components/ProjectsSection";
-import EventsSection from "./components/EventsSection";
-import BlogsSection from "./components/BlogsSection";
 import TeamSection from "./components/TeamSection";
-import FAQSection from "./components/FAQSection";
 import FooterSection from "./components/FooterSection";
 
 export default function App() {
-  // Router pathname state
-  const [currentPath, setCurrentPath] = useState(() => {
-    let path = window.location.pathname.replace(/^\/|\/$/g, "");
-    const hash = window.location.hash.replace("#", "");
-    if (hash) {
-      path = hash;
-    }
-    if (!path) {
-      path = "about";
-    }
-    const validPaths = ["about", "projects", "events", "blogs", "team", "faq"];
-    return validPaths.includes(path) ? path : "about";
-  });
+  // Navigation path tracking state
+  const [currentPath, setCurrentPath] = useState("team");
 
   // Custom cursor tracking state
   const [mousePosition, setMousePosition] = useState({ x: -100, y: -100 });
   const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
-    const handleLocationChange = () => {
-      let path = window.location.pathname.replace(/^\/|\/$/g, "");
-      const hash = window.location.hash.replace("#", "");
-      if (hash) {
-        path = hash;
-      }
-      if (!path) {
-        path = "about";
-      }
-      const validPaths = ["about", "projects", "events", "blogs", "team", "faq"];
-      if (validPaths.includes(path)) {
-        setCurrentPath(path);
-      } else {
-        // Fallback or implicit homepage
-        setCurrentPath("about");
-      }
-    };
-
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
 
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      if (
-        !target
-      ) return;
+      if (!target) return;
       
       const isClickable = 
         target.tagName === "BUTTON" ||
@@ -68,27 +32,25 @@ export default function App() {
       setIsHovering(!!isClickable);
     };
 
-    window.addEventListener("popstate", handleLocationChange);
-    window.addEventListener("hashchange", handleLocationChange);
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
     window.addEventListener("mouseover", handleMouseOver, { passive: true });
-    
-    // Check initially
-    handleLocationChange();
 
     return () => {
-      window.removeEventListener("popstate", handleLocationChange);
-      window.removeEventListener("hashchange", handleLocationChange);
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseover", handleMouseOver);
     };
   }, []);
 
   const navigateTo = (path: string) => {
-    window.location.hash = path;
-    window.history.pushState(null, "", "/" + path);
     setCurrentPath(path);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (path === "faq" || path === "footer") {
+      const footer = document.getElementById("footer");
+      if (footer) {
+        footer.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
 
   return (
@@ -159,7 +121,7 @@ export default function App() {
         </svg>
       </div>
 
-      {/* Dynamic Conditional Rendering of multi-page router website */}
+      {/* Render the single team page layout */}
       <AnimatePresence mode="wait">
         <motion.div
           key="integrated-layout"
@@ -173,25 +135,16 @@ export default function App() {
           {/* Nav Menu with routing props */}
           <Navigation currentPath={currentPath} onNavigate={navigateTo} />
 
-          {/* Routed View Container with clean page-transition motion */}
+          {/* Routed View Container containing only the Team page */}
           <div className="flex-grow w-full pt-20">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentPath}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.35, ease: "easeInOut" }}
-                className="w-full"
-              >
-                {currentPath === "about" && <AboutSection />}
-                {currentPath === "projects" && <ProjectsSection />}
-                {currentPath === "events" && <EventsSection />}
-                {currentPath === "blogs" && <BlogsSection />}
-                {currentPath === "team" && <TeamSection />}
-                {currentPath === "faq" && <FAQSection />}
-              </motion.div>
-            </AnimatePresence>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35, ease: "easeInOut" }}
+              className="w-full"
+            >
+              <TeamSection />
+            </motion.div>
           </div>
 
           {/* Shared bottom footer strictly aligned */}
