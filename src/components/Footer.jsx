@@ -5,7 +5,7 @@ export default function Footer() {
         <div className="grid grid-cols-3 gap-8 mb-8">
           <div>
             <h3 className="text-lg font-bold mb-4">VITMAS</h3>
-            <p>Music and Arts Society of VIT Vellore</p>
+            <p>Mathematical Society of VIT Vellore</p>
           </div>
           <div>
             <h3 className="text-lg font-bold mb-4">Quick Links</h3>
@@ -18,11 +18,11 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-bold mb-4">Contact</h3>
             <p>Email: vitmas@vit.ac.in</p>
-            <p>Phone: +91-XXX-XXXX-XXXX</p>
+            <p>Phone: +91-6969696969</p>
           </div>
         </div>
         <div className="border-t border-gray-700 pt-4 text-center">
-          <p>&copy; 2024 VITMAS. All rights reserved.</p>
+          <p>&copy; 2026 VIT Mathematical Association VIT Vellore. All rights reserved.</p>
         </div>
       </div>
     </footer>
