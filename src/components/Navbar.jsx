@@ -6,6 +6,7 @@ const Navbar = () => {
   const currentPath = location.pathname;
 
   const links = [
+    { name : 'HOME', path: '/'},
     { name: 'ABOUT', path: '/about' },
     { name: 'PROJECTS', path: '/projects' },
     { name: 'EVENTS', path: '/events' },
