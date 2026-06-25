@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 export default function Footer() {
   return (
     <footer className="bg-gray-800 text-white py-8">
@@ -10,9 +12,9 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-bold mb-4">Quick Links</h3>
             <ul className="space-y-2">
-              <li><a href="/" className="hover:text-blue-400">Home</a></li>
-              <li><a href="/about" className="hover:text-blue-400">About</a></li>
-              <li><a href="/events" className="hover:text-blue-400">Events</a></li>
+              <li><Link to="/" className="hover:text-blue-400">Home</Link></li>
+              <li><Link to="/about" className="hover:text-blue-400">About</Link></li>
+              <li><Link to="/events" className="hover:text-blue-400">Events</Link></li>
             </ul>
           </div>
           <div>
