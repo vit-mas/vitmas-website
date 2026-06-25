@@ -48,12 +48,3 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #66fcf1;
 }
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-body {
-  margin: 0;
-  overflow-x: hidden;
-}
