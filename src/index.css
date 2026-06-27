@@ -57,3 +57,465 @@ body {
   margin: 0;
   overflow-x: hidden;
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&family=Caveat:wght@400;700&family=Architects+Daughter&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  --font-handwritten: "Caveat", cursive;
+  --font-doodle: "Architects Daughter", cursive;
+  --font-serif-italic: "Playfair Display", serif;
+
+  --color-dark-bg: #000000;
+  --color-brand-purple: #701a75;
+  --color-brand-glow: #d946ef;
+  --color-neon-pink: #f43f5e;
+  --color-neon-blue: #06b6d4;
+  --color-neon-green: #10b981;
+}
+
+/* Custom visual utilities for the VITMAS Figma design */
+@utility text-glow-white {
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 25px rgba(255, 255, 255, 0.4), 0 0 50px rgba(168, 85, 247, 0.3);
+}
+
+@utility text-glow-purple {
+  text-shadow: 0 0 10px rgba(168, 85, 247, 0.8), 0 0 20px rgba(217, 70, 239, 0.6), 0 0 40px rgba(217, 70, 239, 0.3);
+}
+
+@utility border-glow-purple {
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.4), inset 0 0 15px rgba(168, 85, 247, 0.2);
+}
+
+@utility border-glow-pink {
+  box-shadow: 0 0 20px rgba(244, 63, 94, 0.6), inset 0 0 15px rgba(244, 63, 94, 0.2);
+}
+
+@utility border-glow-green {
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.6), inset 0 0 15px rgba(16, 185, 129, 0.2);
+}
+
+@utility animate-slow-spin {
+  animation: spin 60s linear infinite;
+}
+
+@utility animate-slow-spin-reverse {
+  animation: spin-reverse 80s linear infinite;
+}
+
+@utility bg-grid-pattern {
+  background-image: radial-gradient(#ffffff0a 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+@keyframes spin-reverse {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes diagonal-cloud-1 {
+  0% {
+    transform: translate(-10vw, 30vh) scale(0.85);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.65;
+  }
+  50% {
+    transform: translate(25vw, 20vh) scale(1.15);
+    opacity: 0.8;
+  }
+  80% {
+    opacity: 0.55;
+  }
+  100% {
+    transform: translate(60vw, 15vh) scale(0.9);
+    opacity: 0;
+  }
+}
+
+@keyframes diagonal-cloud-2 {
+  0% {
+    transform: translate(-5vw, 35vh) scale(0.7);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.75;
+  }
+  45% {
+    transform: translate(30vw, 22vh) scale(1.1);
+    opacity: 0.85;
+  }
+  75% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(65vw, 18vh) scale(0.8);
+    opacity: 0;
+  }
+}
+
+@keyframes diagonal-cloud-3 {
+  0% {
+    transform: translate(-15vw, 40vh) scale(0.95);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.6;
+  }
+  55% {
+    transform: translate(20vw, 25vh) scale(1.2);
+    opacity: 0.75;
+  }
+  85% {
+    opacity: 0.45;
+  }
+  100% {
+    transform: translate(55vw, 20vh) scale(0.85);
+    opacity: 0;
+  }
+}
+
+.animate-diagonal-cloud-1 {
+  animation: diagonal-cloud-1 22s ease-in-out infinite;
+}
+
+.animate-diagonal-cloud-2 {
+  animation: diagonal-cloud-2 28s ease-in-out infinite;
+}
+
+.animate-diagonal-cloud-3 {
+  animation: diagonal-cloud-3 34s ease-in-out infinite;
+}
+
+html, body, #root {
+  background-color: var(--color-dark-bg);
+  color: #f1f5f9;
+  font-family: var(--font-sans);
+  scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
+}
+
+@keyframes marquee-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.animate-marquee-left {
+  display: flex;
+  width: max-content;
+  animation: marquee-left 32s linear infinite;
+}
+
+.animate-marquee-right {
+  display: flex;
+  width: max-content;
+  animation: marquee-right 32s linear infinite;
+}
+
+.marquee-track:hover .animate-marquee-left,
+.marquee-track:hover .animate-marquee-right {
+  animation-play-state: paused;
+}
+
+/* Explicit interactive pointer cursor styling overrides */
+button, 
+a, 
+[role="button"], 
+.cursor-pointer,
+#scroll-indicator,
+.group {
+  cursor: pointer !important;
+}
+
+/* Make sure elements with pointer-events-none do not intercept cursors */
+.pointer-events-none {
+  pointer-events: none !important;
+}
+
+/* ── Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jockey+One:wght@400&display=swap');
+
+/* ── Custom font: Kompot Sans ── */
+@font-face {
+  font-family: "Kompot Sans";
+  src: url("https://cdn.jsdelivr.net/fontsource/fonts/kompot-sans@latest/latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── Design tokens ── */
+:root {
+  --color-bg:           #11001b;
+  --color-purple:       #8800ff;
+  --color-dark-magenta: rgba(120, 9, 148, 0.2);
+  --color-white:        #ffffff;
+  --color-role-text:    #8800ff;   /* "blue" in tailwind config */
+  --card-width:         442px;
+  --card-height:        427px;
+  --card-inner-height:  417px;
+  --photo-w:            200px;
+  --photo-h:            200px;
+  --border-radius-card: 24px;
+  --border-width:       2px;
+}
+
+/* ── Section wrapper ── */
+.profile-grid-wrapper {
+  position: relative;
+  width: 100%;
+  background-color: var(--color-bg);
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+/* ── "MEET THE TEAM" heading ── */
+.meet-the-team {
+  font-family: "Space Grotesk", "Outfit", "Inter", sans-serif;
+  font-size: clamp(40px, 8.5vw, 126px);
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: 0.22em;
+  text-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.9),
+    0 6px 20px rgba(0, 0, 0, 0.95),
+    0 12px 40px rgba(0, 0, 0, 1),
+    0 20px 80px rgba(0, 0, 0, 1);
+  white-space: nowrap;
+  margin: 0;
+  text-align: center;
+  text-transform: uppercase;
+  line-height: 1.1;
+  display: inline-block;
+}
+
+/* ── Grid container ── */
+.profile-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  column-gap: clamp(16px, 2.5vw, 42px);
+  row-gap: clamp(24px, 3.5vw, 56px);
+  padding: clamp(12px, 2vw, 36px);
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  justify-items: center;
+}
+
+@media (min-width: 768px) {
+  .profile-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1340px) {
+  .profile-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ── Individual card ── */
+.profile-card {
+  position: relative;
+  height: var(--card-height);           /* 390px */
+  text-align: left;
+  font-family: "Poppins", sans-serif;
+  border-radius: var(--border-radius-card);
+  overflow: hidden;
+  width: 100%;
+  max-width: var(--card-width);         /* Match exact design width (360px) */
+  margin: 0 auto;
+  transition: box-shadow 0.3s ease;
+}
+
+.profile-card:hover {
+  box-shadow: 0 15px 35px rgba(168, 85, 247, 0.35);
+}
+
+/* ── Card background layers ── */
+.card-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.card-bg-fill {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--border-radius-card);
+  background-color: rgba(13, 3, 27, 0.48); /* Transparent deep violet tint */
+  backdrop-filter: blur(1.5px);          /* Subtle glass-morphism so behind-card grid line paths pass through cleanly */
+  -webkit-backdrop-filter: blur(1.5px);
+  overflow: hidden;
+}
+
+/* Thin horizontal rule at exact y coordinate layout */
+.card-divider-line {
+  position: absolute;
+  top: 334px;
+  left: 4px;
+  right: 4px;
+  height: 1px;
+  border-top: 1px solid rgba(168, 85, 247, 0.25);
+  box-sizing: border-box;
+  z-index: 2;
+  transition: border-color 0.3s ease;
+}
+
+/* Futuristic purple inner border frame for the entire card */
+.card-border {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  right: 4px;
+  bottom: 4px;
+  border-radius: calc(var(--border-radius-card) - 3px);
+  border: var(--border-width) solid rgba(168, 85, 247, 0.55); /* Elegant neon purple */
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.15), inset 0 0 10px rgba(168, 85, 247, 0.1);
+  box-sizing: border-box;
+  z-index: 2;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-card:hover .card-border {
+  border-color: rgba(217, 70, 239, 0.9);                 /* Vivid magenta highlight on hover */
+  box-shadow: 0 0 20px rgba(217, 70, 239, 0.4), inset 0 0 15px rgba(217, 70, 239, 0.25);
+}
+
+.profile-card:hover .card-divider-line {
+  border-color: rgba(217, 70, 239, 0.45);
+}
+
+/* ── Profile photo ── */
+.profile-photo {
+  position: absolute;
+  top: 32px;
+  left: calc(50% - (var(--photo-w) / 2)); /* centers dynamic-width image perfectly */
+  width: var(--photo-w);               /* Centered and matching size */
+  height: var(--photo-h);              
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid rgba(168, 85, 247, 0.45); /* Elegant purple circle outline */
+  background-color: rgba(9, 2, 18, 0.85);
+  box-shadow: 0 0 14px rgba(168, 85, 247, 0.2);
+  z-index: 3;
+}
+
+/* Invisible circle overlay on photo (for border control) */
+.photo-circle-overlay {
+  position: absolute;
+  top: 32px;
+  left: calc(50% - (var(--photo-w) / 2));
+  width: var(--photo-w);
+  height: var(--photo-h);
+  border-radius: 50%;
+  border: 1.5px solid rgba(168, 85, 247, 0.35); /* Pre-lit purple overlay */
+  box-sizing: border-box;
+  z-index: 4;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-card:hover .photo-circle-overlay {
+  border-color: rgba(217, 70, 239, 0.9);         /* Intense neon fuchsia glow on hover */
+  box-shadow: 0 0 18px rgba(217, 70, 239, 0.45);
+}
+
+/* ── Social icons row ── */
+.social-icons {
+  position: absolute;
+  top: 248px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  z-index: 5;
+}
+
+.icon-linkedin {
+  width: 17px;
+  height: 18px;
+}
+
+.icon-github {
+  width: 19px;
+  height: 20px;
+}
+
+/* ── Role label (e.g. "CHAIRPERSON") ── */
+.card-role {
+  position: absolute;
+  top: 288px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  color: #c084fc;                       /* Vibrant high-contrast purple-indigo */
+  white-space: nowrap;
+  margin: 0;
+  z-index: 3;
+}
+
+/* ── Name label (e.g. "ASHMAN SODI") ── */
+.card-name {
+  position: absolute;
+  top: 358px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: "Poppins", sans-serif;
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--color-white);
+  white-space: nowrap;
+  margin: 0;
+  z-index: 3;
+}
+
+/* ── Responsive breakpoints ── */
+@media (max-width: 1050px) {
+  .card-role       { font-size: 12px; }
+  .card-name       { font-size: 14px; }
+}
+
+@media (max-width: 450px) {
+  .card-role       { font-size: 11px; }
+  .card-name       { font-size: 13px; }
+  .profile-grid    { grid-template-columns: 1fr; }
+}
+
+/* Desktop-only custom pointer hiding spanning all interactive elements and groups to prevent native pointer/hand leaks */
+/* @media (min-width: 768px) {
+  *, 
+  *::before, 
+  *::after,
+  button,
+  a,
+  input,
+  select,
+  textarea,
+  [role="button"],
+  .cursor-pointer,
+  #scroll-indicator,
+  .group {
+    cursor: none !important;
+  }
+} */
