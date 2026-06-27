@@ -76,7 +76,7 @@ export default function VitMasBlogs() {
           --card-border: #2a1a4a;
 
           font-family: 'Space Grotesk', sans-serif;
-          background: linear-gradient(135deg, #0d0018 0%, #1a0b2e 100%);
+          background: transparent;
           color: var(--text);
           min-height: 100vh;
           overflow-x: hidden;
