@@ -12,7 +12,7 @@ import mgmtImg from "../assets/images/mgmt.png";
 import chairImg from "../assets/images/chair.png";
 import outImg from "../assets/images/outreach.png";
 import vcImg from "../assets/images/vc.png";
-import coSecImg from "../assets/images/cosec.png";
+import coSecImg from "../assets/images/cosec.jpeg";
 import designImg from "../assets/images/design.png";
 
 const FoldingPointer = ({ className = "w-5 h-5" }) => (
@@ -431,8 +431,8 @@ export default function Team() {
 
   const team = [
     {
-      name: "ASHMAN",
-      role: "CHAIRPERSON",
+      name: "Ashman Sodhi",
+      role: "Chairperson",
       linkedin: "https://linkedin.com/in/#",
       github: "https://github.com/#",
       photo: chairImg,
@@ -446,8 +446,8 @@ export default function Team() {
       favQuote: "The essence of mathematics lies in its freedom."
     },
     {
-      name: "ADITI",
-      role: "GENERAL SECRETARY",
+      name: "Aditi Chaudhary",
+      role: "General Secretary",
       photo: genSecImg,
       linkedin: "https://linkedin.com/in/#",
       github: "https://github.com/#",
@@ -461,8 +461,8 @@ export default function Team() {
       favQuote: "There should be no boundaries to human endeavor."
     },
     {
-      name: "SAKSHAM",
-      role: "VICE CHAIR",
+      name: "Saksham Goyal",
+      role: "Vice Chairperson",
       linkedin: "https://linkedin.com/in/#",
       github: "https://github.com/#",
       avatarGradient: "from-blue-600 to-cyan-600",
@@ -476,11 +476,11 @@ export default function Team() {
       favQuote: "Speed is nothing without direction."
     },
     {
-      name: "DHANESH",
-      role: "VICE SECRETARY",
+      name: "Dhanesh",
+      role: "Co-Secretary",
       photo: coSecImg,
-      linkedin: "https://linkedin.com/in/#",
-      github: "https://github.com/#",
+      linkedin: "https://www.linkedin.com/in/dhaneshbaheti/",
+      github: "https://github.com/DhaneshBaheti",
       avatarGradient: "from-rose-600 to-amber-600",
       initials: "DH",
       bio: "Synthesizing theoretical theories into stunning media digests, organizing knowledgebases, and maintaining VITMAS publications of mathematical research.",
@@ -491,8 +491,8 @@ export default function Team() {
       favQuote: "Simplicity is the ultimate sophistication."
     },
     {
-      name: "ANIRUDHA",
-      role: "POSITION",
+      name: "Anirudha",
+      role: "Design Head",
       photo: designImg,
       linkedin: "https://linkedin.com/in/#",
       github: "https://github.com/#",
@@ -506,8 +506,8 @@ export default function Team() {
       favQuote: "Curiosity is the engine of achievement."
     },
     {
-      name: "ABHA",
-      role: "POSITION",
+      name: "Abha Dongre",
+      role: "Tech Head",
       linkedin: "https://linkedin.com/in/#",
       github: "https://github.com/#",
       avatarGradient: "from-violet-600 to-purple-600",
@@ -521,8 +521,8 @@ export default function Team() {
       favQuote: "Curiosity is the engine of achievement."
     },
     {
-      name: "HARSHITHA",
-      role: "POSITION",
+      name: "Harshitha D",
+      role: "Projects Head",
       linkedin: "https://linkedin.com/in/#",
       github: "https://github.com/#",
       avatarGradient: "from-fuchsia-600 to-purple-800",
@@ -536,8 +536,8 @@ export default function Team() {
       favQuote: "The essence of mathematics lies in its freedom."
     },
     {
-      name: "GARGEE",
-      role: "POSITION",
+      name: "Gargee",
+      role: "Editorial Head",
       linkedin: "https://linkedin.com/in/#",
       github: "https://github.com/#",
       avatarGradient: "from-indigo-600 to-cyan-600",
@@ -551,8 +551,8 @@ export default function Team() {
       favQuote: "Curiosity is the engine of achievement."
     },
     {
-      name: "ROOPESH",
-      role: "EVENTS HEAD",
+      name: "Roopesh",
+      role: "Events Head",
       linkedin: "https://linkedin.com/in/#",
       github: "https://github.com/#",
       avatarGradient: "from-teal-600 to-emerald-600",
@@ -566,9 +566,9 @@ export default function Team() {
       favQuote: "know what you are to whom before thinking about why"
     },
     {
-      name: "TANISI",
+      name: "Tanisi",
       photo: outImg,
-      role: "POSITION",
+      role: "Outreach and PR Head",
       linkedin: "https://linkedin.com/in/#",
       github: "https://github.com/#",
       avatarGradient: "from-cyan-600 to-teal-600",
@@ -581,8 +581,8 @@ export default function Team() {
       favQuote: "Curiosity is the engine of achievement."
     },
     {
-      name: "NISHMEETHAA",
-      role: "POSITION",
+      name: "Nishmeethaa",
+      role: "Management Head",
       linkedin: "https://linkedin.com/in/#",
       github: "https://github.com/#",
       photo: mgmtImg,
@@ -597,13 +597,11 @@ export default function Team() {
     }
   ];
 
-  // Divide the 11 members into two distinct infinite sliding marquee tracks
-  const track1Members = team.slice(0, 6);
-  const track2Members = team.slice(6, 11);
-
-  // Triple the elements inside each track array for completely seamless infinite loop
-  const t1Infinite = [...track1Members, ...track1Members, ...track1Members];
-  const t2Infinite = [...track2Members, ...track2Members, ...track2Members];
+  const topLeaders = team.slice(0, 2);
+  const boardMembers = team.slice(2);
+  const boardRow1 = boardMembers.slice(0, 3);
+  const boardRow2 = boardMembers.slice(3, 6);
+  const boardRow3 = boardMembers.slice(6, 9);
 
   return (
     <section 
@@ -651,7 +649,7 @@ export default function Team() {
         <div className="space-y-16">
           {/* Top Leaders Row */}
           <div className="flex flex-col md:flex-row justify-center items-center gap-6 md:gap-x-12 max-w-[1000px] mx-auto w-full px-4">
-            {team.filter(m => m.role === "CHAIRPERSON" || m.role === "GENERAL SECRETARY").map((member) => {
+            {topLeaders.map((member) => {
               const originalIndex = team.indexOf(member);
               return (
                 <div key={`${member.name}-${originalIndex}`} className="w-full md:w-1/2 max-w-[442px] mx-auto">
@@ -665,9 +663,41 @@ export default function Team() {
             })}
           </div>
 
-          {/* Board Members 3-Column Grid */}
+          {/* Board Members Row 1 */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 max-w-7xl mx-auto w-full justify-items-center mt-6">
-            {team.filter(m => m.role !== "CHAIRPERSON" && m.role !== "GENERAL SECRETARY").map((member) => {
+            {boardRow1.map((member) => {
+              const originalIndex = team.indexOf(member);
+              return (
+                <div key={`${member.name}-${originalIndex}`} className="w-full max-w-[442px] mx-auto">
+                  <TeamMemberCard 
+                    member={member}
+                    index={originalIndex !== -1 ? originalIndex : 2}
+                    onSelect={setSelectedMember}
+                  />
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Board Members Row 2 */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 max-w-7xl mx-auto w-full justify-items-center">
+            {boardRow2.map((member) => {
+              const originalIndex = team.indexOf(member);
+              return (
+                <div key={`${member.name}-${originalIndex}`} className="w-full max-w-[442px] mx-auto">
+                  <TeamMemberCard 
+                    member={member}
+                    index={originalIndex !== -1 ? originalIndex : 2}
+                    onSelect={setSelectedMember}
+                  />
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Board Members Row 3 */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 max-w-7xl mx-auto w-full justify-items-center">
+            {boardRow3.map((member) => {
               const originalIndex = team.indexOf(member);
               return (
                 <div key={`${member.name}-${originalIndex}`} className="w-full max-w-[442px] mx-auto">
