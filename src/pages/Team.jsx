@@ -433,8 +433,8 @@ export default function Team() {
     {
       name: "Ashman Sodhi",
       role: "Chairperson",
-      linkedin: "https://linkedin.com/in/#",
-      github: "https://github.com/#",
+      linkedin: "https://www.linkedin.com/in/ashman-sodhi-094b53243/",
+      github: "https://github.com/AshmanSodhi",
       photo: chairImg,
       avatarGradient: "from-purple-600 to-indigo-600",
       initials: "AS",
