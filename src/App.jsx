@@ -10,6 +10,7 @@ import Gallery from './pages/Gallery'
 import Contact from './pages/Contact'
 import FAQ from './pages/Faq'
 import VitMasBlogs from './pages/Blogs'
+import VitMasBlogs2 from './pages/Blogs2'
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/faq" element={<FAQ />} />
-          <Route path="/blogs" element={<VitMasBlogs />} />
+          <Route path="/blogs" element={<VitMasBlogs2 />} />
         </Routes>
       </Layout>
     </Router>
