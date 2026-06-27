@@ -3,272 +3,17 @@ import { motion, AnimatePresence, useMotionValue, useSpring, useTransform, useSc
 import { Link, GitBranch, X, Cpu, Layers, Award, Terminal, Code, Heart } from "lucide-react";
 // @ts-ignore
 import temporaryProfileImg from "../assets/images/temporary_profile_1781792241865.jpg";
-
-// Generative Mathematical / Technical Profile Vector Artwork for each team member
-const getMemberArtwork = (initials) => {
-  switch (initials) {
-    case "AS": // ASHMAN SODI - Stochastic Models
-      return (
-        <svg viewBox="0 0 200 200" className="w-full h-full text-indigo-400 group-hover:text-indigo-300 transition-colors" fill="none">
-          <circle cx="100" cy="100" r="80" stroke="currentColor" strokeWidth="1" strokeOpacity="0.15" />
-          <circle cx="100" cy="100" r="50" stroke="currentColor" strokeWidth="1" strokeDasharray="3 3" strokeOpacity="0.25" />
-          {/* Stochastic node tree / Markov chains */}
-          <g className="transition-transform duration-700 group-hover:rotate-12 transform-gpu origin-center">
-            <circle cx="70" cy="70" r="6" fill="#6366f1" className="animate-pulse" />
-            <circle cx="130" cy="70" r="6" fill="#818cf8" />
-            <circle cx="100" cy="140" r="6" fill="#4f46e5" />
-            
-            {/* Transition vectors with arrows */}
-            <path d="M 76 70 L 124 70" stroke="currentColor" strokeWidth="1.5" strokeDasharray="2 2" />
-            <path d="M 74 74 L 96 136" stroke="currentColor" strokeWidth="1.5" />
-            <path d="M 126 74 L 104 136" stroke="currentColor" strokeWidth="1.5" />
-            
-            {/* Probability curve (normal distribution curve) */}
-            <path d="M 30 110 Q 100 20, 170 110" stroke="#a855f7" strokeWidth="2" strokeOpacity="0.8" />
-            <line x1="100" y1="20" x2="100" y2="150" stroke="currentColor" strokeWidth="0.5" strokeDasharray="2 4" strokeOpacity="0.4" />
-          </g>
-          {/* Coordinate tick lines */}
-          <line x1="20" y1="100" x2="180" y2="100" stroke="currentColor" strokeWidth="0.5" strokeOpacity="0.2" />
-          <line x1="100" y1="20" x2="100" y2="180" stroke="currentColor" strokeWidth="0.5" strokeOpacity="0.2" />
-        </svg>
-      );
-    case "AD": // ADITI - Matrix Algebras
-      return (
-        <svg viewBox="0 0 200 200" className="w-full h-full text-fuchsia-400 group-hover:text-fuchsia-300 transition-colors" fill="none">
-          {/* Isometric matrix sheets */}
-          <g className="transition-all duration-500 transform group-hover:translate-y-[-4px]">
-            <path d="M 100 40 L 160 70 L 100 100 L 40 70 Z" stroke="currentColor" strokeWidth="1.5" fill="rgba(217, 70, 239, 0.05)" />
-            <path d="M 100 100 L 160 130 L 100 160 L 40 130 Z" stroke="currentColor" strokeWidth="1" strokeOpacity="0.4" fill="rgba(217, 70, 239, 0.02)" />
-            
-            {/* Vector projections */}
-            <line x1="100" y1="100" x2="100" y2="40" stroke="#f472b6" strokeWidth="2" className="animate-pulse" />
-            <line x1="100" y1="100" x2="140" y2="80" stroke="#d946ef" strokeWidth="2" />
-            <line x1="100" y1="100" x2="60" y2="80" stroke="#bfdbfe" strokeWidth="1.5" />
-            
-            {/* Corner crosshairs */}
-            <circle cx="100" cy="40" r="3" fill="#ec4899" />
-            <circle cx="160" cy="70" r="3" fill="#d946ef" />
-            <circle cx="40" cy="70" r="3" fill="#ec4899" />
-          </g>
-          <text x="110" y="55" className="font-mono text-[8px] fill-fuchsia-400/50">[λ = 2.718]</text>
-        </svg>
-      );
-    case "SG": // SAKSHAM GOYAL - Hyper-geometry (rotating projection coordinates)
-      return (
-        <svg viewBox="0 0 200 200" className="w-full h-full text-cyan-400 group-hover:text-cyan-300 transition-colors" fill="none">
-          {/* Hypercube project coordinates */}
-          <g className="origin-center transition-transform duration-1000 group-hover:rotate-90">
-            {/* Outer cube */}
-            <rect x="50" y="50" width="100" height="100" stroke="currentColor" strokeWidth="1" strokeOpacity="0.4" />
-            {/* Inner cube */}
-            <rect x="75" y="75" width="50" height="50" stroke="#22d3ee" strokeWidth="1.5" />
-            {/* Connecting lines */}
-            <line x1="50" y1="50" x2="75" y2="75" stroke="currentColor" strokeWidth="1" strokeOpacity="0.6" />
-            <line x1="150" y1="50" x2="125" y2="75" stroke="currentColor" strokeWidth="1" strokeOpacity="0.6" />
-            <line x1="50" y1="150" x2="75" y2="125" stroke="currentColor" strokeWidth="1" strokeOpacity="0.6" />
-            <line x1="150" y1="150" x2="125" y2="125" stroke="currentColor" strokeWidth="1" strokeOpacity="0.6" />
-          </g>
-          <circle cx="100" cy="100" r="65" stroke="currentColor" strokeWidth="0.5" strokeDasharray="4 6" strokeOpacity="0.2" />
-          <text x="55" y="40" className="font-mono text-[8px] fill-cyan-400/50">ℝ⁴ → ℝ³ PROJ</text>
-        </svg>
-      );
-    case "DH": // DEVARINTI HARSHITHA - Scientific publications
-      return (
-        <svg viewBox="0 0 200 200" className="w-full h-full text-rose-400 group-hover:text-rose-300 transition-colors" fill="none">
-          {/* Golden Spiral / Fibonacci layout */}
-          <g className="origin-center transition-transform duration-700 group-hover:rotate-45">
-            {/* Fibonacci rectangles */}
-            <rect x="30" y="30" width="140" height="140" stroke="currentColor" strokeWidth="0.5" strokeOpacity="0.2" />
-            <line x1="116" y1="30" x2="116" y2="170" stroke="currentColor" strokeWidth="0.5" strokeOpacity="0.2" />
-            <line x1="116" y1="116" x2="170" y2="116" stroke="currentColor" strokeWidth="0.5" strokeOpacity="0.2" />
-            <line x1="63" y1="116" x2="116" y2="116" stroke="currentColor" strokeWidth="0.5" strokeOpacity="0.2" />
-            
-            {/* Spiral curve arc segments */}
-            <path d="M 30 170 A 140 140 0 0 1 170 30" stroke="currentColor" strokeWidth="1" strokeOpacity="0.3" />
-            <path d="M 170 30 A 86 86 0 0 1 116 116" stroke="#f43f5e" strokeWidth="1.5" />
-            <path d="M 116 116 A 53 53 0 0 1 63 63" stroke="#fb7185" strokeWidth="2" />
-          </g>
-          <text x="35" y="185" className="font-mono text-[7px] fill-rose-500/40">Φ = 1.6180339</text>
-        </svg>
-      );
-    case "RK": // ROHAN KULKARNI - System scalability / binary tree
-      return (
-        <svg viewBox="0 0 200 200" className="w-full h-full text-teal-400 group-hover:text-teal-300 transition-colors" fill="none">
-          {/* Binary hierarchy nodes */}
-          <g className="transition-all duration-300 group-hover:scale-105 origin-center">
-            {/* System connections */}
-            <line x1="100" y1="40" x2="60" y2="90" stroke="currentColor" strokeWidth="1.5" />
-            <line x1="100" y1="40" x2="140" y2="90" stroke="currentColor" strokeWidth="1.5" />
-            <line x1="60" y1="90" x2="40" y2="140" stroke="currentColor" strokeWidth="1" strokeDasharray="2 2" />
-            <line x1="60" y1="90" x2="80" y2="140" stroke="currentColor" strokeWidth="1" />
-            <line x1="140" y1="90" x2="120" y2="140" stroke="currentColor" strokeWidth="1" />
-            <line x1="140" y1="90" x2="160" y2="140" stroke="currentColor" strokeWidth="1" strokeDasharray="2 2" />
-            
-            {/* Active Nodes */}
-            <circle cx="100" cy="40" r="10" fill="#0d9488" stroke="#ffffff" strokeWidth="1.5" />
-            <circle cx="60" cy="90" r="8" fill="#14b8a6" className="animate-pulse" />
-            <circle cx="140" cy="90" r="8" fill="#0f766e" />
-            <circle cx="40" cy="140" r="6" fill="#115e59" />
-            <circle cx="80" cy="140" r="6" fill="#2dd4bf" />
-            <circle cx="120" cy="140" r="6" fill="#14b8a6" />
-            <circle cx="160" cy="140" r="6" fill="#115e59" />
-          </g>
-          <text x="115" y="45" className="font-mono text-[8px] fill-teal-400/50">O(log N)</text>
-        </svg>
-      );
-    case "AM": // ANANYA MEHTA - Ledger / optimization theory
-      return (
-        <svg viewBox="0 0 200 200" className="w-full h-full text-purple-400 group-hover:text-purple-300 transition-colors" fill="none">
-          {/* Dynamic contour terrain map */}
-          <g className="transition-transform duration-500 group-hover:scale-95 origin-center">
-            {/* Gradient contour lines */}
-            <circle cx="100" cy="100" r="60" stroke="currentColor" strokeWidth="0.8" strokeOpacity="0.2" />
-            <circle cx="100" cy="100" r="40" stroke="#a855f7" strokeWidth="1" strokeOpacity="0.3" />
-            <circle cx="100" cy="100" r="20" stroke="#c084fc" strokeWidth="1.5" />
-            
-            {/* Gradient descent route path */}
-            <path d="M160 50 Q130 80, 105 95" stroke="#ec4899" strokeWidth="2.5" className="animate-pulse" />
-            <circle cx="160" cy="50" r="4" fill="#ec4899" />
-            <circle cx="105" cy="95" r="3.5" fill="#f43f5e" />
-          </g>
-          <text x="35" y="32" className="font-mono text-[8.5px] fill-purple-500/50">min f(x)</text>
-        </svg>
-      );
-    case "SS": // SIYA SHARMA - Graphic / vector topography
-      return (
-        <svg viewBox="0 0 200 200" className="w-full h-full text-fuchsia-400 group-hover:text-fuchsia-300 transition-colors" fill="none">
-          {/* Topography vector mesh curve paths */}
-          <g className="origin-center transition-transform duration-500 group-hover:-rotate-6">
-            <path d="M 20 50 Q 70 20, 100 80 T 180 60" stroke="#f472b6" strokeWidth="2" />
-            <path d="M 20 90 Q 70 60, 100 120 T 180 100" stroke="currentColor" strokeWidth="1.2" strokeOpacity="0.6" />
-            <path d="M 20 130 Q 70 100, 100 160 T 180 140" stroke="currentColor" strokeWidth="0.8" strokeDasharray="3 3" strokeOpacity="0.3" />
-            
-            {/* Bezier control points handles */}
-            <line x1="70" y1="20" x2="70" y2="60" stroke="currentColor" strokeWidth="0.5" strokeOpacity="0.4" />
-            <circle cx="70" cy="20" r="3" fill="#ec4899" />
-            <circle cx="70" cy="60" r="2.5" fill="currentColor" stroke="currentColor" />
-          </g>
-          <text x="50" y="180" className="font-mono text-[7px] fill-fuchsia-400/50">BEZIER_SPLINE_OK</text>
-        </svg>
-      );
-    case "MI": // MADHAV IYER - Neural Network / Phase landscape
-      return (
-        <svg viewBox="0 0 200 200" className="w-full h-full text-blue-400 group-hover:text-blue-300 transition-colors" fill="none">
-          {/* Fully connected neural network architecture nodes */}
-          <g className="transition-all duration-300 group-hover:scale-105 origin-center">
-            {/* Synaptic Weights */}
-            <path d="M 30 70 L 90 40 L 170 100" stroke="currentColor" strokeWidth="0.8" strokeOpacity="0.3" />
-            <path d="M 30 70 L 90 100 L 170 100" stroke="currentColor" strokeWidth="1" strokeOpacity="0.6" />
-            <path d="M 30 130 L 90 40 L 170 100" stroke="currentColor" strokeWidth="0.8" strokeOpacity="0.3" />
-            <path d="M 30 130 L 90 160 L 170 100" stroke="currentColor" strokeWidth="1.2" strokeOpacity="0.8" />
-            <path d="M 30 130 L 90 100 L 170 100" stroke="currentColor" strokeWidth="1.5" />
-            
-            {/* Input layer */}
-            <circle cx="30" cy="70" r="5" fill="#1e1b4b" stroke="currentColor" strokeWidth="1" />
-            <circle cx="30" cy="130" r="5" fill="#1e1b4b" stroke="currentColor" strokeWidth="1" />
-            
-            {/* Hidden layers */}
-            <circle cx="90" cy="40" r="5.5" fill="#3b82f6" className="animate-pulse" />
-            <circle cx="90" cy="100" r="5.5" fill="#2563eb" />
-            <circle cx="90" cy="160" r="5.5" fill="#60a5fa" />
-            
-            {/* Output layer */}
-            <circle cx="170" cy="100" r="6" fill="#3b82f6" stroke="#ffffff" strokeWidth="1" />
-          </g>
-          <text x="120" y="32" className="font-mono text-[8px] fill-blue-500/50">MSE &lt; 1e-6</text>
-        </svg>
-      );
-    case "KP": // KRISHNA PRASAD - Operations traveling salesperson Voronoi
-      return (
-        <svg viewBox="0 0 200 200" className="w-full h-full text-cyan-500 group-hover:text-cyan-400 transition-colors" fill="none">
-          {/* Interlocked operations graph layout */}
-          <g className="transition-all duration-500 group-hover:scale-95 origin-center">
-            {/* Polygons */}
-            <polygon points="40,60 100,30 140,80 80,110" stroke="currentColor" strokeWidth="0.8" strokeOpacity="0.3" fill="rgba(8, 145, 178, 0.02)" />
-            <polygon points="80,110 140,80 160,140 100,160" stroke="currentColor" strokeWidth="0.8" strokeOpacity="0.2" />
-            
-            {/* Path network optimal trajectory */}
-            <path d="M 40 60 L 100 30 L 140 80 L 160 140 L 100 160" stroke="#0891b2" strokeWidth="2.5" strokeLinecap="round" className="animate-pulse" />
-            
-            {/* Operations coordinates pins */}
-            <circle cx="40" cy="60" r="4.5" fill="#22d3ee" />
-            <circle cx="100" cy="30" r="4.5" fill="#0891b2" />
-            <circle cx="140" cy="80" r="4.5" fill="#06b6d4" />
-            <circle cx="160" cy="140" r="4.5" fill="#0891b2" />
-            <circle cx="100" cy="160" r="4.5" fill="#22d3ee" />
-          </g>
-          <text x="135" y="45" className="font-mono text-[7px] fill-cyan-400/40">O(N²)</text>
-        </svg>
-      );
-    case "RS": // RHEA SEN - Design Architect Golden Ratio layout circles
-      return (
-        <svg viewBox="0 0 200 200" className="w-full h-full text-pink-500 group-hover:text-rose-400 transition-colors" fill="none">
-          {/* Mathematical golden circle proportions outline */}
-          <g className="origin-center transition-all duration-300 group-hover:scale-105">
-            <circle cx="100" cy="100" r="75" stroke="currentColor" strokeWidth="1" strokeOpacity="0.15" />
-            <circle cx="100" cy="100" r="46.35" stroke="currentColor" strokeWidth="1.2" strokeOpacity="0.3" />
-            <circle cx="100" cy="100" r="28.64" stroke="#f43f5e" strokeWidth="1.5" className="animate-pulse" />
-            <circle cx="100" cy="100" r="17.7" stroke="#fb7185" strokeWidth="1.5" />
-            
-            {/* Measuring architectural vector lines */}
-            <line x1="20" y1="20" x2="180" y2="180" stroke="currentColor" strokeWidth="0.5" strokeOpacity="0.3" />
-            <line x1="180" y1="20" x2="20" y2="180" stroke="currentColor" strokeWidth="0.5" strokeOpacity="0.3" />
-            
-            {/* Frame boundary boxes */}
-            <rect x="53.65" y="53.65" width="92.7" height="92.7" stroke="currentColor" strokeWidth="0.5" strokeOpacity="0.2" />
-          </g>
-          <text x="35" y="32" className="font-mono text-[8px] fill-rose-500/50">RATIO: 1.618</text>
-        </svg>
-      );
-    case "IB": // ISHAN BANERJEE - Public Relations global networking mesh
-      return (
-        <svg viewBox="0 0 200 200" className="w-full h-full text-orange-400 group-hover:text-orange-300 transition-colors" fill="none">
-          {/* Global network spherical lines */}
-          <g className="origin-center transition-transform duration-500 group-hover:rotate-45">
-            <circle cx="100" cy="100" r="65" stroke="currentColor" strokeWidth="1" strokeDasharray="2 3" strokeOpacity="0.5" />
-            <ellipse cx="100" cy="100" rx="65" ry="25" stroke="currentColor" strokeWidth="1.2" strokeOpacity="0.4" />
-            <ellipse cx="100" cy="100" rx="25" ry="65" stroke="#f97316" strokeWidth="1" strokeOpacity="0.6" />
-            
-            {/* Communications satellites beams */}
-            <circle cx="100" cy="35" r="4.5" fill="#f97316" className="animate-pulse" />
-            <circle cx="165" cy="100" r="4.5" fill="#fdba74" />
-            <circle cx="35" cy="100" r="4.5" fill="#f97316" />
-          </g>
-          <text x="30" y="27" className="font-mono text-[7px] fill-orange-500/50">GLOBAL_REL_NET_EST</text>
-        </svg>
-      );
-    case "AK": // AARAV KAPOOR - Community Cellular Automaton Fractal Tree
-      return (
-        <svg viewBox="0 0 200 200" className="w-full h-full text-emerald-400 group-hover:text-emerald-300 transition-colors" fill="none">
-          {/* Game of Life coordinate cells & network mesh */}
-          <g className="transition-transform duration-500 group-hover:-translate-y-1 origin-center">
-            {/* Grid structure */}
-            <line x1="50" y1="40" x2="150" y2="40" stroke="currentColor" strokeWidth="0.5" strokeOpacity="0.1" />
-            <line x1="50" y1="80" x2="150" y2="80" stroke="currentColor" strokeWidth="0.5" strokeOpacity="0.1" />
-            <line x1="50" y1="120" x2="150" y2="120" stroke="currentColor" strokeWidth="0.5" strokeOpacity="0.1" />
-            
-            <line x1="60" y1="30" x2="60" y2="150" stroke="currentColor" strokeWidth="0.5" strokeOpacity="0.1" />
-            <line x1="100" y1="30" x2="100" y2="150" stroke="currentColor" strokeWidth="0.5" strokeOpacity="0.1" />
-            <line x1="140" y1="30" x2="140" y2="150" stroke="currentColor" strokeWidth="0.5" strokeOpacity="0.1" />
-            
-            {/* Active cells */}
-            <rect x="94" y="34" width="12" height="12" fill="#059669" className="animate-pulse" />
-            <rect x="54" y="74" width="12" height="12" fill="#10b981" />
-            <rect x="94" y="74" width="12" height="12" fill="#34d399" />
-            <rect x="134" y="74" width="12" height="12" fill="#059669" />
-            <rect x="94" y="114" width="12" height="12" fill="#047857" />
-            
-            {/* Links */}
-            <path d="M100 40 L100 120" stroke="currentColor" strokeWidth="1.5" />
-            <path d="M60 80 L140 80" stroke="currentColor" strokeWidth="1.5" />
-          </g>
-          <text x="135" y="150" className="font-mono text-[7px] fill-emerald-500/50">GEN: 481</text>
-        </svg>
-      );
-    default:
-      return null;
-  }
-};
+import eventImg from "../assets/images/events.png";
+import techImg from "../assets/images/tech.png";
+import editorialImg from "../assets/images/editorial.png";
+import projectsImg from "../assets/images/projects.png";
+import genSecImg from "../assets/images/gensec.png";
+import mgmtImg from "../assets/images/mgmt.png";
+import chairImg from "../assets/images/chair.png";
+import outImg from "../assets/images/outreach.png";
+import vcImg from "../assets/images/vc.png";
+import coSecImg from "../assets/images/cosec.png";
+import designImg from "../assets/images/design.png";
 
 const FoldingPointer = ({ className = "w-5 h-5" }) => (
   <svg viewBox="0 0 195 217" className={`${className} transition-transform group-hover:translate-x-1 duration-300`} fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -379,7 +124,7 @@ function TeamMemberCard({ member, index, onSelect }) {
       style={{ perspective: "1200px" }}
     >
       <motion.section 
-        onClick={() => onSelect(member)}
+        /*onClick={() => onSelect(member)}*/
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         whileHover={{ 
@@ -419,7 +164,7 @@ function TeamMemberCard({ member, index, onSelect }) {
       >
         <div className={`absolute inset-0 bg-gradient-to-br ${member.avatarGradient} opacity-20 group-hover:opacity-45 transition-opacity duration-300`} />
         <img 
-          src={temporaryProfileImg} 
+          src={member.photo || temporaryProfileImg} 
           alt={member.name}
           className="w-full h-full object-cover relative z-10 transition-transform duration-300 group-hover:scale-105"
           referrerPolicy="no-referrer"
@@ -455,15 +200,6 @@ function TeamMemberCard({ member, index, onSelect }) {
       <h2 className="card-role" style={{ transform: "translateX(-50%) translateZ(20px)" }}>{member.role}</h2>
       <h2 className="card-name" style={{ transform: "translateX(-50%) translateZ(15px)" }}>{member.name}</h2>
       
-      {/* Glowing vector spark in the bottom right matching Figma design exactly */}
-      <div 
-        className="absolute bottom-4 right-4 opacity-25 group-hover:opacity-80 group-hover:scale-110 pointer-events-none transition-all duration-300 z-10"
-        style={{ transform: "translateZ(18px)" }}
-      >
-        <svg className="w-4 h-4 text-slate-100 filter drop-shadow-[0_0_6px_rgba(255,255,255,0.7)]" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 2 Q12 12 22 12 Q12 12 12 22 Q12 12 2 12 Q12 12 12 2 Z" />
-        </svg>
-      </div>
     </motion.section>
     </motion.div>
   );
@@ -699,6 +435,7 @@ export default function Team() {
       role: "CHAIRPERSON",
       linkedin: "https://linkedin.com/in/#",
       github: "https://github.com/#",
+      photo: chairImg,
       avatarGradient: "from-purple-600 to-indigo-600",
       initials: "AS",
       bio: "Masterminding the strategic visions of VITMAS. Specialized in coordinate modeling, stochastic computations, and leading high-profile institutional engineering panels.",
@@ -711,6 +448,7 @@ export default function Team() {
     {
       name: "ADITI",
       role: "GENERAL SECRETARY",
+      photo: genSecImg,
       linkedin: "https://linkedin.com/in/#",
       github: "https://github.com/#",
       avatarGradient: "from-pink-600 to-fuchsia-600",
@@ -729,6 +467,7 @@ export default function Team() {
       github: "https://github.com/#",
       avatarGradient: "from-blue-600 to-cyan-600",
       initials: "SG",
+      photo: vcImg,
       bio: "Propelling structural developments and analytical agendas. Lead researcher in high-dimensional computational geometry and numerical simulation architectures.",
       stats: { projects: "10+ Engineered", forte: "Hyper-Geometry", commit: "Constant Acceleration" },
       favSong: "Blinding Lights",
@@ -739,6 +478,7 @@ export default function Team() {
     {
       name: "DHANESH",
       role: "VICE SECRETARY",
+      photo: coSecImg,
       linkedin: "https://linkedin.com/in/#",
       github: "https://github.com/#",
       avatarGradient: "from-rose-600 to-amber-600",
@@ -751,26 +491,28 @@ export default function Team() {
       favQuote: "Simplicity is the ultimate sophistication."
     },
     {
-      name: "ROOPESH",
-      role: "EVENTS HEAD",
+      name: "ANIRUDHA",
+      role: "POSITION",
+      photo: designImg,
       linkedin: "https://linkedin.com/in/#",
       github: "https://github.com/#",
-      avatarGradient: "from-teal-600 to-emerald-600",
-      initials: "RK",
-      bio: "Pioneering the web platforms, mathematical visualization systems, and computational servers with optimal low-latency algorithms.",
-      stats: { projects: "20+ Deployments", forte: "System Scalability", commit: "Pure Terminal" },
-      favSong: "Yennai Maatrum",
-      favArtist: "Anirudh Ravichander",
-      favEquation: "1 + w + w² = 0",
-      favQuote: "know what you are to whom before thinking about why"
+      avatarGradient: "from-amber-600 to-pink-600",
+      initials: "IB",
+      bio: "Fostering strategic communication grids with corporate entities, academic associations, and maintaining premium client liaisons.",
+      stats: { projects: "16+ Partnerships", forte: "Strategic Alliances", commit: "Always Online" },
+      favSong: "Math Symphony",
+      favArtist: "Mozart",
+      favEquation: "x² + y² = r²",
+      favQuote: "Curiosity is the engine of achievement."
     },
     {
-      name: "NAME",
+      name: "ABHA",
       role: "POSITION",
       linkedin: "https://linkedin.com/in/#",
       github: "https://github.com/#",
       avatarGradient: "from-violet-600 to-purple-600",
       initials: "AM",
+      photo: techImg,
       bio: "Formulating operational ledger vectors, optimizing resources dynamically, and overseeing treasury models for large-scale technical symposiums.",
       stats: { projects: "14+ Managed", forte: "Optimization Theory", commit: "Rigorous Balance" },
       favSong: "Math Symphony",
@@ -779,12 +521,13 @@ export default function Team() {
       favQuote: "Curiosity is the engine of achievement."
     },
     {
-      name: "NAME",
+      name: "HARSHITHA",
       role: "POSITION",
       linkedin: "https://linkedin.com/in/#",
       github: "https://github.com/#",
       avatarGradient: "from-fuchsia-600 to-purple-800",
       initials: "SS",
+      photo: projectsImg,
       bio: "Spearheading UI layouts, custom graphic algorithms, and projecting the premium cryptographic aesthetic layout of VITMAS on digital fronts.",
       stats: { projects: "18+ Designs", forte: "Vector Topography", commit: "Creative Peak" },
       favSong: "Math Symphony",
@@ -793,12 +536,13 @@ export default function Team() {
       favQuote: "The essence of mathematics lies in its freedom."
     },
     {
-      name: "NAME",
+      name: "GARGEE",
       role: "POSITION",
       linkedin: "https://linkedin.com/in/#",
       github: "https://github.com/#",
       avatarGradient: "from-indigo-600 to-cyan-600",
       initials: "MI",
+      photo: editorialImg,
       bio: "Probing modern horizons of deep reinforcement learning, neural differential integrations, and chairing mathematical research colloquiums.",
       stats: { projects: "6+ Deep Papers", forte: "Neural Dynamics", commit: "High Entropy" },
       favSong: "Math Symphony",
@@ -807,7 +551,23 @@ export default function Team() {
       favQuote: "Curiosity is the engine of achievement."
     },
     {
-      name: "NAME",
+      name: "ROOPESH",
+      role: "EVENTS HEAD",
+      linkedin: "https://linkedin.com/in/#",
+      github: "https://github.com/#",
+      avatarGradient: "from-teal-600 to-emerald-600",
+      initials: "RK",
+      photo: eventImg,
+      bio: "Pioneering the web platforms, mathematical visualization systems, and computational servers with optimal low-latency algorithms.",
+      stats: { projects: "20+ Deployments", forte: "System Scalability", commit: "Pure Terminal" },
+      favSong: "Yennai Maatrum",
+      favArtist: "Anirudh Ravichander",
+      favEquation: "1 + w + w² = 0",
+      favQuote: "know what you are to whom before thinking about why"
+    },
+    {
+      name: "TANISI",
+      photo: outImg,
       role: "POSITION",
       linkedin: "https://linkedin.com/in/#",
       github: "https://github.com/#",
@@ -821,28 +581,15 @@ export default function Team() {
       favQuote: "Curiosity is the engine of achievement."
     },
     {
-      name: "NAME",
+      name: "NISHMEETHAA",
       role: "POSITION",
       linkedin: "https://linkedin.com/in/#",
       github: "https://github.com/#",
+      photo: mgmtImg,
       avatarGradient: "from-violet-600 to-rose-600",
       initials: "RS",
       bio: "Refining visual frontends, dynamic wireframe topologies, and crafting pixel-perfect interactive component systems for user delight.",
       stats: { projects: "14+ Blueprints", forte: "Dynamic Interaction", commit: "Aesthetic Rigor" },
-      favSong: "Math Symphony",
-      favArtist: "Mozart",
-      favEquation: "x² + y² = r²",
-      favQuote: "Curiosity is the engine of achievement."
-    },
-    {
-      name: "NAME",
-      role: "POSITION",
-      linkedin: "https://linkedin.com/in/#",
-      github: "https://github.com/#",
-      avatarGradient: "from-amber-600 to-pink-600",
-      initials: "IB",
-      bio: "Fostering strategic communication grids with corporate entities, academic associations, and maintaining premium client liaisons.",
-      stats: { projects: "16+ Partnerships", forte: "Strategic Alliances", commit: "Always Online" },
       favSong: "Math Symphony",
       favArtist: "Mozart",
       favEquation: "x² + y² = r²",
