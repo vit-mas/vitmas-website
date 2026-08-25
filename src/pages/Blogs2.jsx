@@ -211,7 +211,7 @@ const getExcerpt = (description) => {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding: 16px 40px;
+          padding: 16px clamp(16px, 4vw, 40px);
           background: transparent;
         }
 
@@ -236,7 +236,7 @@ const getExcerpt = (description) => {
           display: flex;
           align-items: center;
           justify-content: space-evenly;
-          width: 786px;
+          width: min(786px, 62vw);
           height: 73px;
           gap: 4px;
           background: rgba(20, 16, 31, 0.85);
@@ -250,7 +250,7 @@ const getExcerpt = (description) => {
         .vit-mas-blogs .nav-links a {
           text-decoration: none;
           color: var(--muted);
-          font-size: 22px;
+          font-size: clamp(12px, 1.5vw, 22px);
           font-weight: 700;
           letter-spacing: 0.5px;
           padding: 10px 18px;
@@ -298,18 +298,24 @@ const getExcerpt = (description) => {
 
         /* ── HERO ── */
         .vit-mas-blogs .hero {
+          max-width: 1152px;
+          width: 100%;
+          margin: 0 auto;
           text-align: center;
-          padding: 80px 20px 40px;
+          padding: 144px 24px 64px;
+          box-sizing: border-box;
         }
 
         .vit-mas-blogs .hero h1 {
-          font-family: "Jomhuria", "Anton", "Arial Narrow Bold", "Arial Black", sans-serif;
-          font-size: 260px;
+          font-family: "Space Grotesk", sans-serif;
+          font-size: clamp(4.5rem, 10vw, 6rem);
           line-height: 1;
-          font-weight: 400;
+          font-weight: 900;
+          letter-spacing: 0.2em;
           color: #ffffff;
           text-transform: uppercase;
-          text-shadow: 6px 9px 17.7px rgba(212, 204, 204, 0.74);
+          text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 25px rgba(255, 255, 255, 0.4), 0 0 50px rgba(168, 85, 247, 0.3);
+          margin: 0;
         }
 
         /* ── BLOG SECTION ── */
@@ -461,7 +467,7 @@ const getExcerpt = (description) => {
             display: none;
           }
           .vit-mas-blogs .hero h1 {
-            font-size: 90px;
+            font-size: clamp(3.5rem, 16vw, 5rem);
           }
           .vit-mas-blogs .blog-card,
           .vit-mas-blogs .blog-card.flip {

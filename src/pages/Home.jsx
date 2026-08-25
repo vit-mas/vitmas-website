@@ -16,16 +16,15 @@ export default function Home() {
 
       <main className="flex flex-col items-center text-center px-6">
         <h1
-          className="text-white font-bold tracking-[8px]"
+          className="text-white font-bold tracking-[4px] sm:tracking-[8px] text-6xl sm:text-8xl md:text-[10rem]"
           style={{
-            fontSize: '10rem',
             textShadow: '0 0 10px rgba(255,255,255,0.8), 0 0 20px rgba(255,255,255,0.6), 0 0 40px rgba(255,255,255,0.4)',
           }}
         >
           VITMAS
         </h1>
         <p
-          className="text-white uppercase tracking-[4px] text-2xl"
+          className="max-w-3xl text-white uppercase tracking-[2px] text-base leading-7 sm:text-xl sm:tracking-[4px] md:text-2xl"
           style={{
             textShadow: '0 0 10px rgba(255,255,255,0.8), 0 0 20px rgba(255,255,255,0.6), 0 0 40px rgba(255,255,255,0.4)',
           }}

@@ -296,7 +296,7 @@ a,
     0 6px 20px rgba(0, 0, 0, 0.95),
     0 12px 40px rgba(0, 0, 0, 1),
     0 20px 80px rgba(0, 0, 0, 1);
-  white-space: nowrap;
+  white-space: normal;
   margin: 0;
   text-align: center;
   text-transform: uppercase;
@@ -413,8 +413,10 @@ a,
   left: calc(50% - (var(--photo-w) / 2)); /* centers dynamic-width image perfectly */
   width: var(--photo-w);               /* Centered and matching size */
   height: var(--photo-h);              
+  overflow: hidden;
   object-fit: cover;
   border-radius: 50%;
+  clip-path: circle(50%);
   border: 2px solid rgba(168, 85, 247, 0.45); /* Elegant purple circle outline */
   background-color: rgba(9, 2, 18, 0.85);
   box-shadow: 0 0 14px rgba(168, 85, 247, 0.2);
@@ -433,6 +435,7 @@ a,
   box-sizing: border-box;
   z-index: 4;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  pointer-events: none;
 }
 
 .profile-card:hover .photo-circle-overlay {
@@ -504,6 +507,22 @@ a,
   .card-role       { font-size: 11px; }
   .card-name       { font-size: 13px; }
   .profile-grid    { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  :root {
+    --card-width: min(100%, 360px);
+    --card-height: 360px;
+    --card-inner-height: 350px;
+    --photo-w: 160px;
+    --photo-h: 160px;
+  }
+
+  .card-divider-line { top: 282px; }
+  .profile-photo, .photo-circle-overlay { top: 24px; }
+  .social-icons { top: 210px; }
+  .card-role { top: 238px; }
+  .card-name { top: 302px; max-width: 90%; text-align: center; }
 }
 
 /* Desktop-only custom pointer hiding spanning all interactive elements and groups to prevent native pointer/hand leaks */

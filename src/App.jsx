@@ -9,8 +9,8 @@ import Team from './pages/Team'
 import Gallery from './pages/Gallery'
 import Contact from './pages/Contact'
 import FAQ from './pages/Faq'
-import VitMasBlogs from './pages/Blogs'
 import VitMasBlogs2 from './pages/Blogs2'
+import Projects from './pages/Projects'
 
 function App() {
   return (
@@ -20,6 +20,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/events" element={<Events />} />
+          <Route path="/projects" element={<Projects />} />
           <Route path="/team" element={<Team />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/contact" element={<Contact />} />
