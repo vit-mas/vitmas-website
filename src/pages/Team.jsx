@@ -31,6 +31,7 @@ import outImg from "../assets/images/outreach.png";
 import vcImg from "../assets/images/vc.png";
 import coSecImg from "../assets/images/cosec.jpeg";
 import designImg from "../assets/images/design.png";
+import facCordImg from "../assets/images/facCord.jpg"
 
 const FoldingPointer = ({ className = "w-5 h-5" }) => (
   <svg
@@ -508,6 +509,24 @@ export default function Team() {
 
   const team = [
     {
+      name: "Dr. JAGADEESH KUMAR M.S",
+      role: "Faculty Coordinator",
+      linkedin: "https://www.linkedin.com/in/dr-m-s-jagadeesh-kumar-01015830/",
+      github: "https://www.researchgate.net/profile/Ms-Jagadeesh-Kumar",
+      photo: facCordImg,
+      avatarGradient: "from-purple-600 to-indigo-600",
+      initials: "JK",
+      bio: "Masterminding the strategic visions of VITMAS. Specialized in coordinate modeling, stochastic computations, and leading high-profile institutional engineering panels.",
+      stats: {
+        projects: "15+ Conducted",
+        forte: "Stochastic Models",
+        commit: "High Peak",
+      },
+      favSong: "Perfect",
+      favArtist: "Ed Sheeran",
+      favEquation: "e^(iπ) + 1 = 0",
+      favQuote: "The essence of mathematics lies in its freedom.",
+    },{
       name: "Ashman Sodhi",
       role: "Chairperson",
       linkedin: "https://www.linkedin.com/in/ashman-sodhi-094b53243/",
@@ -718,11 +737,10 @@ export default function Team() {
     },
   ];
 
-  const topLeaders = team.slice(0, 2);
-  const boardMembers = team.slice(2);
-  const boardRow1 = boardMembers.slice(0, 3);
-  const boardRow2 = boardMembers.slice(3, 6);
-  const boardRow3 = boardMembers.slice(6, 9);
+  const row1 = team.slice(0, 3);
+  const row2 = team.slice(3, 6);
+  const row3 = team.slice(6, 9);
+  const row4 = team.slice(9, 12);
 
   return (
     <section
@@ -799,83 +817,30 @@ export default function Team() {
           <Bursting3DHeader />
         </div>
 
-        {/* Profiles Layout: Custom grid separating top leaders from board members */}
+        {/* Profiles Layout: 3-3-3-3 grid structure */}
         <div className="space-y-16">
-          {/* Top Leaders Row */}
-          <div className="flex flex-col md:flex-row justify-center items-center gap-6 md:gap-x-12 max-w-[1000px] mx-auto w-full px-4">
-            {topLeaders.map((member) => {
-              const originalIndex = team.indexOf(member);
-              return (
-                <div
-                  key={`${member.name}-${originalIndex}`}
-                  className="w-full md:w-1/2 max-w-[442px] mx-auto"
-                >
-                  <TeamMemberCard
-                    member={member}
-                    index={originalIndex !== -1 ? originalIndex : 0}
-                    onSelect={setSelectedMember}
-                  />
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Board Members Row 1 */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 max-w-7xl mx-auto w-full justify-items-center mt-6">
-            {boardRow1.map((member) => {
-              const originalIndex = team.indexOf(member);
-              return (
-                <div
-                  key={`${member.name}-${originalIndex}`}
-                  className="w-full max-w-[442px] mx-auto"
-                >
-                  <TeamMemberCard
-                    member={member}
-                    index={originalIndex !== -1 ? originalIndex : 2}
-                    onSelect={setSelectedMember}
-                  />
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Board Members Row 2 */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 max-w-7xl mx-auto w-full justify-items-center">
-            {boardRow2.map((member) => {
-              const originalIndex = team.indexOf(member);
-              return (
-                <div
-                  key={`${member.name}-${originalIndex}`}
-                  className="w-full max-w-[442px] mx-auto"
-                >
-                  <TeamMemberCard
-                    member={member}
-                    index={originalIndex !== -1 ? originalIndex : 2}
-                    onSelect={setSelectedMember}
-                  />
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Board Members Row 3 */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 max-w-7xl mx-auto w-full justify-items-center">
-            {boardRow3.map((member) => {
-              const originalIndex = team.indexOf(member);
-              return (
-                <div
-                  key={`${member.name}-${originalIndex}`}
-                  className="w-full max-w-[442px] mx-auto"
-                >
-                  <TeamMemberCard
-                    member={member}
-                    index={originalIndex !== -1 ? originalIndex : 2}
-                    onSelect={setSelectedMember}
-                  />
-                </div>
-              );
-            })}
-          </div>
+          {[row1, row2, row3, row4].map((row, rowIndex) => (
+            <div
+              key={`team-row-${rowIndex}`}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 max-w-7xl mx-auto w-full justify-items-center"
+            >
+              {row.map((member) => {
+                const originalIndex = team.indexOf(member);
+                return (
+                  <div
+                    key={`${member.name}-${originalIndex}`}
+                    className="w-full max-w-[442px] mx-auto"
+                  >
+                    <TeamMemberCard
+                      member={member}
+                      index={originalIndex !== -1 ? originalIndex : rowIndex * 3}
+                      onSelect={setSelectedMember}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          ))}
         </div>
       </div>
 
