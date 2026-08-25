@@ -35,7 +35,7 @@ export default function Contact() {
             </p>
             <div className="space-y-4">
               <p className="text-white/70"><strong className="text-white">Email:</strong> vitmas@vit.ac.in</p>
-              <p className="text-white/70"><strong className="text-white">Phone:</strong> +91-XXX-XXXX-XXXX</p>
+              <p className="text-white/70"><strong className="text-white">Phone:</strong> +91 81779 55735</p>
               <p className="text-white/70"><strong className="text-white">Location:</strong> VIT Vellore Campus</p>
             </div>
           </div>
