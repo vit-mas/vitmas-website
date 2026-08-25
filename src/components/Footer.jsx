@@ -20,7 +20,7 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-bold mb-4">Contact</h3>
             <p className="text-white/60">Email: vitmas@vit.ac.in</p>
-            <p className="text-white/60">Phone: +91-6969696969</p>
+            <p className="text-white/60">Phone: +91 81779 55735</p>
           </div>
         </div>
         <div className="border-t border-gray-700 pt-4 text-center">
