@@ -1,111 +1,158 @@
 /**
  * Vercel Serverless Function: GET /api/gallery
- * Proxies Cloudinary Admin API to safely list images in a folder.
+ * Uses Cloudinary Node SDK v2 Search API (Option A - secure server-side).
  *
- * Required ENV (set in Vercel dashboard -> Settings -> Environment Variables):
+ * Required ENV (Vercel -> Settings -> Environment Variables):
  *  - CLOUDINARY_CLOUD_NAME
  *  - CLOUDINARY_API_KEY
  *  - CLOUDINARY_API_SECRET
- *  - CLOUDINARY_FOLDER (optional, default: "vitmas/gallery")
+ *  - CLOUDINARY_FOLDER (optional, default: "VITMASGallery")
  *
  * Query params (optional):
- *  - ?folder=custom/folder
- *  - ?limit=100  (max 500, default 100)
- *  - ?next_cursor=xxx (for pagination)
+ *  - ?folder=custom/folder  (overrides env)
+ *  - ?limit=100
+ *  - ?next_cursor=xxx
+ *  - ?debug=1  (returns diagnostics)
  */
 
+import { v2 as cloudinary } from 'cloudinary';
+
 export default async function handler(req, res) {
-  // CORS + cache headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
-
-  if (req.method !== 'GET') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
+  if (req.method === 'OPTIONS') return res.status(200).end();
+  if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
 
   const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
   const apiKey = process.env.CLOUDINARY_API_KEY;
   const apiSecret = process.env.CLOUDINARY_API_SECRET;
-  const folder = (req.query?.folder || process.env.CLOUDINARY_FOLDER || 'VITMASGallery').toString();
+  const rawFolder = (req.query?.folder || process.env.CLOUDINARY_FOLDER || 'VITMASGallery').toString().trim();
+  // normalize: remove leading/trailing slashes
+  const folder = rawFolder.replace(/^\/+|\/+$/g, '');
   const limit = Math.min(parseInt(req.query?.limit?.toString() || '100', 10) || 100, 500);
   const nextCursor = req.query?.next_cursor?.toString() || undefined;
+  const debug = req.query?.debug === '1' || req.query?.debug === 'true';
 
   if (!cloudName || !apiKey || !apiSecret) {
     return res.status(500).json({
       error: 'Cloudinary not configured',
-      hint: 'Set CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET in Vercel env. See .env.example',
+      hint: 'Set CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET in Vercel -> Settings -> Environment Variables and Redeploy. Also set CLOUDINARY_FOLDER=VITMASGallery to match your Media Library folder name (case-sensitive).',
       folder,
+      rawFolder,
+      hasCloudName: !!cloudName,
+      hasApiKey: !!apiKey,
+      hasApiSecret: !!apiSecret,
     });
   }
 
+  // 1. Configure cloudinary SDK (matches user snippet)
+  cloudinary.config({
+    cloud_name: cloudName,
+    api_key: apiKey,
+    api_secret: apiSecret,
+  });
+
+  const diagnostics = {
+    cloudName,
+    folder,
+    rawFolder,
+    limit,
+    nextCursor: nextCursor || null,
+    expression: `folder="${folder}/*"`,
+    tried: [],
+  };
+
   try {
-    // Cloudinary Admin API: list resources by prefix
-    // Docs: https://cloudinary.com/documentation/admin_api#list_resources
-    const params = new URLSearchParams({
-      prefix: folder,
-      max_results: String(limit),
-      resource_type: 'image',
-      type: 'upload',
-    });
-    if (nextCursor) params.set('next_cursor', nextCursor);
+    // 2. Query folder using search expression provided by user
+    // Include "/*" to scan contents, sort by public_id desc, max_results 100 (configurable via limit)
+    const getImagesFromFolder = async () => {
+      const search = cloudinary.search
+        .expression(`folder="${folder}/*"`)
+        .sort_by('public_id', 'desc')
+        .max_results(limit);
 
-    // Alternative richer search via /resources/search is also valid, but prefix is simplest
-    const url = `https://api.cloudinary.com/v1_1/${cloudName}/resources/image?${params.toString()}`;
+      if (nextCursor) {
+        search.next_cursor(nextCursor);
+      }
 
-    const auth = Buffer.from(`${apiKey}:${apiSecret}`).toString('base64');
+      return await search.execute();
+    };
 
-    const cloudRes = await fetch(url, {
-      headers: {
-        Authorization: `Basic ${auth}`,
-      },
-    });
-
-    if (!cloudRes.ok) {
-      const text = await cloudRes.text();
-      console.error('Cloudinary error', cloudRes.status, text);
-      return res.status(cloudRes.status).json({ error: 'Cloudinary API error', details: text });
+    let result;
+    try {
+      result = await getImagesFromFolder();
+      diagnostics.tried.push({
+        strategy: 'cloudinary_search_sdk',
+        expression: `folder="${folder}/*"`,
+        sort_by: 'public_id desc',
+        max_results: limit,
+        next_cursor: nextCursor || null,
+        count: result.resources?.length || 0,
+        next_cursor_response: result.next_cursor || null,
+        success: true,
+      });
+    } catch (searchError) {
+      diagnostics.tried.push({
+        strategy: 'cloudinary_search_sdk',
+        expression: `folder="${folder}/*"`,
+        error: { message: searchError.message, http_code: searchError.http_code || null, error: searchError.error || String(searchError).slice(0, 800) },
+      });
+      throw searchError;
     }
 
-    const data = await cloudRes.json();
+    const resources = result.resources || [];
+    const next_cursor = result.next_cursor || null;
 
-    // Normalize to frontend shape
-    // Cloudinary resource fields: public_id, secure_url, width, height, format, created_at, bytes, etc.
-    const resources = (data.resources || []).map((r) => ({
+    // Normalize to shape expected by Gallery2.jsx
+    const normalized = resources.map((r) => ({
       id: r.public_id,
       public_id: r.public_id,
-      // Use optimized URL: auto format + quality, will be further transformed client-side if needed
       src: r.secure_url,
-      // Cloudinary delivery URL with f_auto,q_auto for optimization
       optimized_src: `https://res.cloudinary.com/${cloudName}/image/upload/f_auto,q_auto/${r.public_id}.${r.format}`,
-      // Thumbnail variant (smaller)
       thumb_src: `https://res.cloudinary.com/${cloudName}/image/upload/f_auto,q_auto,w_600/${r.public_id}.${r.format}`,
       width: r.width,
       height: r.height,
       format: r.format,
       bytes: r.bytes,
-      createdAt: r.created_at, // ISO string, used for sorting newest -> oldest
+      createdAt: r.created_at,
       folder: r.folder || folder,
+      asset_folder: r.asset_folder || undefined,
     }));
 
-    // Sort newest -> oldest (Cloudinary returns roughly sorted but we enforce)
-    resources.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    // Keep existing Gallery2 sort: newest -> oldest via createdAt, fallback to public_id desc already applied
+    normalized.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
-    // Cache at edge for 1 hour, stale-while-revalidate 1 day (Vercel)
-    res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=86400');
+    res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate=600');
+
+    if (normalized.length === 0) {
+      return res.status(200).json({
+        folder,
+        count: 0,
+        next_cursor: null,
+        resources: [],
+        warning: `No images found in Cloudinary folder "${folder}". Check: 1) Folder name case-sensitive (you created "VITMASGallery" under Home) -> set CLOUDINARY_FOLDER=VITMASGallery exactly, 2) Images were uploaded to that folder (public_id should start with VITMASGallery/), 3) Search expression used: folder="${folder}/*", 4) Try /api/gallery?debug=1&folder=VITMASGallery.`,
+        diagnostics,
+        strategyUsed: 'cloudinary_search_sdk',
+      });
+    }
 
     return res.status(200).json({
       folder,
-      count: resources.length,
-      next_cursor: data.next_cursor || null,
-      resources,
+      count: normalized.length,
+      next_cursor,
+      resources: normalized,
+      strategyUsed: 'cloudinary_search_sdk',
+      diagnostics: debug ? diagnostics : undefined,
     });
   } catch (err) {
     console.error('api/gallery handler error', err);
-    return res.status(500).json({ error: 'Internal server error', details: String(err?.message || err) });
+    return res.status(500).json({
+      error: 'Internal server error',
+      details: String(err?.message || err),
+      errorObj: err?.error || undefined,
+      diagnostics: debug ? diagnostics : undefined,
+    });
   }
 }
