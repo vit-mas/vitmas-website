@@ -17,7 +17,7 @@ export default function About() {
           </article>
         </div>
         <div className="mt-5 grid gap-5 border-y border-white/10 py-8 text-center sm:grid-cols-3">
-          <div><strong className="block text-3xl text-white">01</strong><span className="text-sm text-white/50">curious community</span></div>
+          <div><strong className="block text-3xl text-white">1</strong><span className="text-sm text-white/50">curious community</span></div>
           <div><strong className="block text-3xl text-white">∞</strong><span className="text-sm text-white/50">questions to explore</span></div>
           <div><strong className="block text-3xl text-white">VIT</strong><span className="text-sm text-white/50">Vellore, India</span></div>
         </div>
