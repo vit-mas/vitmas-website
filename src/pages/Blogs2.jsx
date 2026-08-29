@@ -136,6 +136,9 @@ const getExcerpt = (description) => {
 
   return (
     <div className="vit-mas-blogs relative z-10">
+    <style>
+        {`@import url('https://fonts.googleapis.com/css2?family=Jockey+One&display=swap');`}
+      </style>
       <style>{`
 
       .vit-mas-blogs .blog-title {
@@ -514,7 +517,7 @@ const getExcerpt = (description) => {
       `}</style>
 
       <section className="hero">
-        <h1>BLOGS</h1>
+        <h1 style={{fontFamily: '"Jockey One", sans-serif'}}>BLOGS</h1>
       </section>
 
       <section className="blogs-section">
@@ -580,6 +583,26 @@ const getExcerpt = (description) => {
             </article>
           )))}
         </div>
+        {!loading && !error && blogPosts.length > 0 && (
+  <div style={{ display: 'flex', justifyContent: 'center', marginTop: '40px' }}>
+    <a
+      href="https://medium.com/@vitmas"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="read-btn"
+      style={{ 
+        background: 'linear-gradient(135deg, #a855f7 0%, #c026d3 100%)',
+        border: 'none',
+        fontWeight: 700,
+        fontFamily: '"Jockey One", sans-serif',
+        letterSpacing: '0.5px',
+        boxShadow: '0 0 24px rgba(168,85,247,0.45)'
+      }}
+    >
+            More on Medium →
+          </a>
+        </div>
+      )}
       </section>
     </div>
   );

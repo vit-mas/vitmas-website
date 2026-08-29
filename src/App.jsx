@@ -12,10 +12,12 @@ import Contact from './pages/Contact'
 import FAQ from './pages/Faq'
 import VitMasBlogs2 from './pages/Blogs2'
 import Projects from './pages/Projects'
+import ScrollToTop from './components/ScrollToTop'
 
 function App() {
   return (
     <Router>
+    <ScrollToTop />
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
