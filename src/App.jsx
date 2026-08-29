@@ -7,6 +7,7 @@ import About from './pages/About'
 import Events from './pages/Events'
 import Team from './pages/Team'
 import Gallery from './pages/Gallery'
+import Gallery2 from './pages/Gallery2'
 import Contact from './pages/Contact'
 import FAQ from './pages/Faq'
 import VitMasBlogs2 from './pages/Blogs2'
@@ -23,6 +24,7 @@ function App() {
           <Route path="/projects" element={<Projects />} />
           <Route path="/team" element={<Team />} />
           <Route path="/gallery" element={<Gallery />} />
+          <Route path="/gallery2" element={<Gallery2 />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/blogs" element={<VitMasBlogs2 />} />
