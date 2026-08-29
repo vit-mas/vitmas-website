@@ -4,16 +4,18 @@ import { motion, AnimatePresence } from 'motion/react';
 
 /**
  * Gallery2 - Cloudinary-powered random collage
- * - Fetches from /api/gallery (Vercel proxy -> Cloudinary Admin API)
- * - Sorted newest -> oldest via createdAt
+ * - Fetches from /api/gallery (Vercel proxy -> Cloudinary Search API via cloudinary v2 SDK)
+ *   API uses: cloudinary.search.expression('folder="VITMASGallery/*"').sort_by('public_id','desc').max_results(100).execute()
+ * - Sorted newest -> oldest via createdAt (client-side), source sorted by public_id desc
  * - Random collage via CSS columns + deterministic variant per image
  * - Infinite scroll (batch 12) via IntersectionObserver
  * - Lightbox on click
  *
- * Env required (Vercel):
+ * Env required (Vercel - server only, never exposed to client):
  *  CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET, CLOUDINARY_FOLDER
+ * Client hint (optional): VITE_CLOUDINARY_FOLDER
  *
- * Folder behavior: just upload to Cloudinary folder (default vitmas/gallery) and it appears top-first.
+ * Folder behavior: just upload to Cloudinary folder (default VITMASGallery) and it appears top-first.
  */
 
 // ---------- helpers ----------
@@ -68,34 +70,48 @@ export default function Gallery2() {
   const [selected, setSelected] = useState(null);
   const sentinelRef = useRef(null);
 
+  const [debugInfo, setDebugInfo] = useState(null);
+  const [warning, setWarning] = useState(null);
+
   const fetchGallery = useCallback(async () => {
     setLoading(true);
     setError(null);
+    setWarning(null);
+    setDebugInfo(null);
     setNotConfigured(false);
     try {
-      const res = await fetch('/api/gallery?limit=100');
+      // auto-use folder from VITE_CLOUDINARY_FOLDER if set, otherwise let API default handle VITMASGallery
+      const folder = import.meta.env.VITE_CLOUDINARY_FOLDER || 'VITMASGallery';
+      const res = await fetch(`/api/gallery?limit=100&folder=${encodeURIComponent(folder)}`);
+      const body = await res.json().catch(() => ({}));
       if (!res.ok) {
-        const body = await res.json().catch(() => ({}));
-        // If 500 with "not configured" -> fallback to mock so dev can see layout
         if (res.status === 500 && body?.error?.includes('not configured')) {
           setNotConfigured(true);
-          // sort mock newest -> oldest
           const sortedMock = [...MOCK_IMAGES].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
           setImages(sortedMock);
+          setDebugInfo(body);
           return;
         }
-        throw new Error(body?.error || body?.details || `Fetch failed ${res.status}`);
+        throw new Error(body?.error || body?.details || `Fetch failed ${res.status}: ${JSON.stringify(body).slice(0,400)}`);
       }
-      const data = await res.json();
-      const list = (data.resources || []).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      // body may contain warning even on 200 when count 0
+      if (body.warning) setWarning(body.warning);
+      if (body.diagnostics) setDebugInfo(body);
+      if (body.count === 0 && (body.diagnostics || body.warning)) {
+        setDebugInfo(body);
+        setImages([]); // keep empty, will show debug panel instead of generic message
+        return;
+      }
+      const list = (body.resources || []).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
       setImages(list);
-      // reset infinite scroll
+      if (body.diagnostics) setDebugInfo(body);
       setVisibleCount(BATCH);
     } catch (e) {
       console.error(e);
       setError(e.message || String(e));
-      // fallback to mock for preview when API unreachable (e.g. vite dev without api)
-      if (images.length === 0) {
+      // fallback to mock only when API unreachable locally (vite dev without api)
+      const isLocalFetchFailure = e.message?.includes('Failed to fetch') || e.message?.includes('Unexpected token');
+      if (isLocalFetchFailure && images.length === 0) {
         const sortedMock = [...MOCK_IMAGES].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         setImages(sortedMock);
         setNotConfigured(true);
@@ -158,13 +174,32 @@ export default function Gallery2() {
         {/* Not configured banner */}
         {notConfigured && (
           <div className="mt-6 rounded-xl border border-amber-400/30 bg-amber-500/10 px-5 py-4 text-sm leading-6 text-amber-200">
-            <p className="font-bold uppercase tracking-widest text-amber-300">Preview mode — Cloudinary not configured</p>
+            <p className="font-bold uppercase tracking-widest text-amber-300">Preview mode — Cloudinary not configured or local dev</p>
             <p className="mt-1 text-amber-200/80">
               Set <code className="bg-black/30 px-1 py-0.5 rounded">CLOUDINARY_CLOUD_NAME</code>,{' '}
               <code className="bg-black/30 px-1 py-0.5 rounded">CLOUDINARY_API_KEY</code>,{' '}
-              <code className="bg-black/30 px-1 py-0.5 rounded">CLOUDINARY_API_SECRET</code> in Vercel env (and <code className="bg-black/30 px-1 py-0.5 rounded">CLOUDINARY_FOLDER</code> if custom).{' '}
-              Showing mock images so you can see the random collage layout. See <code className="bg-black/30 px-1 py-0.5 rounded">.env.example</code>.
+              <code className="bg-black/30 px-1 py-0.5 rounded">CLOUDINARY_API_SECRET</code> in Vercel env and set{' '}
+              <code className="bg-black/30 px-1 py-0.5 rounded">CLOUDINARY_FOLDER=VITMASGallery</code> exactly (case-sensitive). Redeploy after.
             </p>
+            {debugInfo && <pre className="mt-3 max-h-48 overflow-auto rounded bg-black/40 p-3 text-xs leading-4 text-amber-100/80">{JSON.stringify(debugInfo, null, 2)}</pre>}
+          </div>
+        )}
+
+        {/* Empty but with diagnostics (this is your case) */}
+        {warning && images.length === 0 && !loading && (
+          <div className="mt-6 rounded-xl border border-cyan-400/30 bg-cyan-500/10 px-5 py-4 text-sm leading-6 text-cyan-100">
+            <p className="font-bold uppercase tracking-widest text-cyan-300">No images found — but API is connected</p>
+            <p className="mt-1 opacity-90">{warning}</p>
+            {debugInfo && (
+              <>
+                <p className="mt-3 text-xs uppercase tracking-widest text-cyan-200/70">Diagnostics (share this if still stuck):</p>
+                <pre className="mt-2 max-h-[320px] overflow-auto rounded bg-black/40 p-3 text-xs leading-4 text-cyan-100/80">{JSON.stringify(debugInfo, null, 2)}</pre>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <a href={`/api/gallery?folder=VITMASGallery&debug=1`} target="_blank" rel="noreferrer" className="rounded-full bg-white px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-black">Open /api/gallery?debug=1</a>
+                  <button onClick={fetchGallery} className="rounded-full border border-white/20 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-white">Retry</button>
+                </div>
+              </>
+            )}
           </div>
         )}
 
@@ -172,7 +207,8 @@ export default function Gallery2() {
         {error && !notConfigured && (
           <div className="mt-6 rounded-xl border border-red-400/30 bg-red-500/10 px-5 py-4 text-sm text-red-200">
             <p className="font-bold">Failed to load gallery</p>
-            <p className="mt-1 opacity-80">{error}</p>
+            <p className="mt-1 opacity-80 break-all">{error}</p>
+            {debugInfo && <pre className="mt-3 max-h-48 overflow-auto rounded bg-black/40 p-3 text-xs text-red-100/80">{JSON.stringify(debugInfo, null, 2)}</pre>}
             <button onClick={fetchGallery} className="mt-3 rounded-full bg-white px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-black">Retry</button>
           </div>
         )}
@@ -248,9 +284,9 @@ export default function Gallery2() {
             </>
           ) : images.length > 0 ? (
             <p className="text-xs uppercase tracking-[0.2em] text-white/30">— End • {images.length} photos —</p>
-          ) : !loading ? (
+          ) : !loading && !warning && !error && !notConfigured ? (
             <p className="rounded-xl border border-white/10 bg-white/5 px-6 py-8 text-center text-sm text-white/50">
-              No images yet. Upload to Cloudinary folder <code className="text-cyan-300">vitmas/gallery</code> and refresh.
+              No images yet. Upload to Cloudinary folder <code className="text-cyan-300">VITMASGallery</code> and refresh. Then check <a href="/api/gallery?debug=1&folder=VITMASGallery" target="_blank" className="underline text-cyan-300">/api/gallery?debug=1</a>.
             </p>
           ) : null}
         </div>
