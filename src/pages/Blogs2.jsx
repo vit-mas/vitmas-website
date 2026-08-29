@@ -310,14 +310,14 @@ const getExcerpt = (description) => {
         }
 
         .vit-mas-blogs .hero h1 {
-          font-family: "Space Grotesk", sans-serif;
+          font-family: "Inter", sans-serif;
           font-size: clamp(4.5rem, 10vw, 6rem);
           line-height: 1;
           font-weight: 900;
-          letter-spacing: 0.2em;
+          letter-spacing: 0.12em;
           color: #ffffff;
           text-transform: uppercase;
-          text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 25px rgba(255, 255, 255, 0.4), 0 0 50px rgba(168, 85, 247, 0.3);
+          text-shadow: '6px 9px 17.7px rgba(212,204,204,0.9)';
           margin: 0;
         }
 
@@ -517,7 +517,7 @@ const getExcerpt = (description) => {
       `}</style>
 
       <section className="hero">
-        <h1 style={{fontFamily: '"Jockey One", sans-serif'}}>BLOGS</h1>
+        <h1 style={{textShadow: '6px 9px 17.7px rgba(212,204,204,0.5)'}}>BLOGS</h1>
       </section>
 
       <section className="blogs-section">

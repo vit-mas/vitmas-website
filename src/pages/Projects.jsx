@@ -18,7 +18,7 @@ export default function Projects() {
     <section className="min-h-screen px-6 pb-24 pt-40 text-white">
       <div className="mx-auto max-w-6xl">
         <p className="mb-4 text-xs font-bold uppercase tracking-[0.35em] text-fuchsia-300">Build / explore / share</p>
-        <h1 className="max-w-3xl text-5xl font-black uppercase tracking-[0.12em] text-glow-white md:text-7xl">PROJECTS</h1>
+        <h1 className="max-w-3xl text-5xl font-black uppercase tracking-[0.12em] text-glow-white md:text-7xl" style={{textShadow: '6px 9px 17.7px rgba(212,204,204,0.5)'}}>PROJECTS</h1>
         <p className="mt-6 max-w-2xl text-lg leading-8 text-white/60">Ideas from the VITMAS community, shaped into experiments, tools, and experiences.</p>
         <div className="mt-16 grid gap-5 md:grid-cols-2">
           {projects.map((project) => {

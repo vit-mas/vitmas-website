@@ -3,7 +3,7 @@ export default function About() {
     <div className="min-h-screen px-6 pb-24 pt-40 text-white">
       <section className="mx-auto max-w-6xl">
         <p className="mb-4 text-xs font-bold uppercase tracking-[0.35em] text-fuchsia-300">The society behind the signal</p>
-        <h1 className="text-5xl font-black uppercase tracking-[0.12em] text-glow-white md:text-7xl">ABOUT VITMAS</h1>
+        <h1 className="text-5xl font-black uppercase tracking-[0.12em] text-glow-white md:text-7xl" style={{textShadow: '6px 9px 17.7px rgba(212,204,204,0.5)'}}>ABOUT VITMAS</h1>
         <div className="mt-16 grid gap-5 md:grid-cols-2">
           <article className="border border-fuchsia-300/30 bg-[#130a20]/80 p-8">
             <p className="text-xs font-bold uppercase tracking-[0.25em] text-fuchsia-300">01 / Mission</p>

@@ -138,7 +138,7 @@ const Events = () => {
       ></div>
 
       <div className="relative z-10 max-w-6xl px-6 pt-36 pb-24 mx-auto pointer-events-none">
-        <h1 className="text-5xl sm:text-7xl md:text-8xl font-black text-white text-center mb-12 sm:mb-16 tracking-[0.12em] sm:tracking-[0.2em] drop-shadow-[0_0_25px_rgba(255,255,255,0.7)] pointer-events-auto">
+        <h1 className="text-5xl sm:text-7xl md:text-8xl font-black text-white text-center mb-12 sm:mb-16 tracking-[0.12em] sm:tracking-[0.2em] drop-shadow-[6px_9px_17.75px_rgba(212,204,204,0.5)] pointer-events-auto">
           EVENTS
         </h1>
 

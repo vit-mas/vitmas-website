@@ -20,9 +20,9 @@ export default function Home() {
             //textShadow: '1px 9px 10px rgba(255,255,255,0.8), 0 0 20px rgba(255,255,255,0.6), 0 0 40px rgba(255,255,255,0.4)',
             textShadow: '6px 9px 17.7px rgba(212,204,204,0.5)',
             fontFamily: '"Jockey One", sans-serif',
-            letterSpacing: '50.08px',
-            textIndent: '50.08px',
-            fontSize: '200px'
+            letterSpacing: 'clamp(4px, 3.5vw, 50.08px)',
+            textIndent: 'clamp(4px, 3.5vw, 50.08px)',
+            fontSize: 'clamp(3.5rem, 12vw, 200px)'
           }}
         >
           VITMAS
