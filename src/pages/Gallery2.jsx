@@ -153,9 +153,9 @@ export default function Gallery2() {
         {/* Header */}
         <p className="mb-4 text-xs font-bold uppercase tracking-[0.35em] text-cyan-300">Snapshots from the community</p>
         <div className="flex flex-wrap items-end justify-between gap-4">
-          <h1 className="text-5xl font-black uppercase tracking-[0.12em] text-glow-white md:text-7xl">GALLERY</h1>
+          <h1 className="text-5xl font-black uppercase tracking-[0.12em] text-glow-white md:text-7xl" style={{textShadow: '6px 9px 17.7px rgba(212,204,204,0.5)'}}>GALLERY</h1>
           <div className="flex items-center gap-3">
-            <span className="hidden text-xs uppercase tracking-[0.2em] text-white/50 sm:inline">
+            {/* <span className="hidden text-xs uppercase tracking-[0.2em] text-white/50 sm:inline">
               {loading ? 'Loading…' : `${images.length} photos • newest → oldest`}
             </span>
             <button
@@ -163,14 +163,9 @@ export default function Gallery2() {
               className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-bold uppercase tracking-widest text-white/80 backdrop-blur hover:bg-white/10 hover:text-white transition"
             >
               <RefreshCw size={14} className={loading ? 'animate-spin' : ''} /> Refresh
-            </button>
+            </button> */}
           </div>
         </div>
-        <p className="mt-3 max-w-2xl text-sm leading-6 text-white/60">
-          Random collage • masonry layout • auto-sorted by upload date. Just upload to{' '}
-          <code className="rounded bg-white/10 px-1.5 py-0.5 text-cyan-200">Cloudinary / {import.meta.env.VITE_CLOUDINARY_FOLDER || 'VITMASGallery'}</code> and it appears here.
-        </p>
-
         {/* Not configured banner */}
         {notConfigured && (
           <div className="mt-6 rounded-xl border border-amber-400/30 bg-amber-500/10 px-5 py-4 text-sm leading-6 text-amber-200">
