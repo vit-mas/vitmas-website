@@ -152,7 +152,7 @@ export default function Gallery2() {
         </div>
         <p className="mt-3 max-w-2xl text-sm leading-6 text-white/60">
           Random collage • masonry layout • auto-sorted by upload date. Just upload to{' '}
-          <code className="rounded bg-white/10 px-1.5 py-0.5 text-cyan-200">Cloudinary / {import.meta.env.VITE_CLOUDINARY_FOLDER || 'vitmas/gallery'}</code> and it appears here.
+          <code className="rounded bg-white/10 px-1.5 py-0.5 text-cyan-200">Cloudinary / {import.meta.env.VITE_CLOUDINARY_FOLDER || 'VITMASGallery'}</code> and it appears here.
         </p>
 
         {/* Not configured banner */}

@@ -31,7 +31,7 @@ export default async function handler(req, res) {
   const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
   const apiKey = process.env.CLOUDINARY_API_KEY;
   const apiSecret = process.env.CLOUDINARY_API_SECRET;
-  const folder = (req.query?.folder || process.env.CLOUDINARY_FOLDER || 'vitmas/gallery').toString();
+  const folder = (req.query?.folder || process.env.CLOUDINARY_FOLDER || 'VITMASGallery').toString();
   const limit = Math.min(parseInt(req.query?.limit?.toString() || '100', 10) || 100, 500);
   const nextCursor = req.query?.next_cursor?.toString() || undefined;
 
