@@ -1,33 +1,21 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import {
   motion,
-  AnimatePresence,
   useMotionValue,
   useSpring,
   useTransform,
   useScroll,
 } from "motion/react";
-import {
-  Link,
-  GitBranch,
-  X,
-  Cpu,
-  Layers,
-  Award,
-  Terminal,
-  Code,
-  Heart,
-} from "lucide-react";
+import { Cpu, Layers, Award, Terminal, Code, Heart } from "lucide-react";
 // @ts-ignore
-import temporaryProfileImg from "../assets/images/temporary_profile_1781792241865.jpg";
-import eventImg from "../assets/images/events.png";
+import eventImg from "../assets/images/events.jpg";
 import techImg from "../assets/images/tech.png";
 import editorialImg from "../assets/images/editorial.png";
 import projectsImg from "../assets/images/projects.png";
 import genSecImg from "../assets/images/gensec.png";
 import mgmtImg from "../assets/images/mgmt.png";
 import chairImg from "../assets/images/chair.png";
-import outImg from "../assets/images/outreach.png";
+import outImg from "../assets/images/outreach.jpg";
 import vcImg from "../assets/images/vc.png";
 import coSecImg from "../assets/images/cosec.jpeg";
 import designImg from "../assets/images/design.png";
@@ -77,7 +65,7 @@ const FoldingPointer = ({ className = "w-5 h-5" }) => (
   </svg>
 );
 
-function TeamMemberCard({ member, index, onSelect }) {
+function TeamMemberCard({ member, index }) {
   const cardRef = useRef(null);
 
   // Viewport scroll tracking of this card
@@ -177,7 +165,6 @@ function TeamMemberCard({ member, index, onSelect }) {
       style={{ perspective: "1200px" }}
     >
       <motion.section
-        onClick={() => onSelect(member)}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         whileHover={{
@@ -494,18 +481,6 @@ const Bursting3DHeader = () => {
 };
 
 export default function Team() {
-  const [selectedMember, setSelectedMember] = useState(null);
-
-  // Close modal on Escape press
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === "Escape") {
-        setSelectedMember(null);
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
 
   const team = [
     {
@@ -516,17 +491,8 @@ export default function Team() {
       photo: facCordImg,
       avatarGradient: "from-purple-600 to-indigo-600",
       initials: "JK",
-      bio: "Masterminding the strategic visions of VITMAS. Specialized in coordinate modeling, stochastic computations, and leading high-profile institutional engineering panels.",
-      stats: {
-        projects: "15+ Conducted",
-        forte: "Stochastic Models",
-        commit: "High Peak",
-      },
-      favSong: "Perfect",
-      favArtist: "Ed Sheeran",
-      favEquation: "e^(iπ) + 1 = 0",
-      favQuote: "The essence of mathematics lies in its freedom.",
-    },{
+    },
+    {
       name: "Ashman Sodhi",
       role: "Chairperson",
       linkedin: "https://www.linkedin.com/in/ashman-sodhi-094b53243/",
@@ -534,16 +500,6 @@ export default function Team() {
       photo: chairImg,
       avatarGradient: "from-purple-600 to-indigo-600",
       initials: "AS",
-      bio: "Masterminding the strategic visions of VITMAS. Specialized in coordinate modeling, stochastic computations, and leading high-profile institutional engineering panels.",
-      stats: {
-        projects: "15+ Conducted",
-        forte: "Stochastic Models",
-        commit: "High Peak",
-      },
-      favSong: "Perfect",
-      favArtist: "Ed Sheeran",
-      favEquation: "e^(iπ) + 1 = 0",
-      favQuote: "The essence of mathematics lies in its freedom.",
     },
     {
       name: "Aditi Chaudhary",
@@ -553,16 +509,6 @@ export default function Team() {
       github: "https://github.com/#",
       avatarGradient: "from-pink-600 to-fuchsia-600",
       initials: "AD",
-      bio: "Orchestrating mathematical directives, running organizational workflows, and ensuring cross-department coordination with absolute algebraic precision.",
-      stats: {
-        projects: "12+ Orchestrated",
-        forte: "Matrix Algebras",
-        commit: "Endless Stream",
-      },
-      favSong: "Aasa Kooda",
-      favArtist: "Sai Abhyankkar",
-      favEquation: "det(A - λI) = 0",
-      favQuote: "There should be no boundaries to human endeavor.",
     },
     {
       name: "Saksham Goyal",
@@ -572,16 +518,6 @@ export default function Team() {
       avatarGradient: "from-blue-600 to-cyan-600",
       initials: "SG",
       photo: vcImg,
-      bio: "Propelling structural developments and analytical agendas. Lead researcher in high-dimensional computational geometry and numerical simulation architectures.",
-      stats: {
-        projects: "10+ Engineered",
-        forte: "Hyper-Geometry",
-        commit: "Constant Acceleration",
-      },
-      favSong: "Blinding Lights",
-      favArtist: "The Weeknd",
-      favEquation: "∇ × E = -∂B/∂t",
-      favQuote: "Speed is nothing without direction.",
     },
     {
       name: "Dhanesh Baheti",
@@ -591,16 +527,6 @@ export default function Team() {
       github: "https://github.com/DhaneshBaheti",
       avatarGradient: "from-rose-600 to-amber-600",
       initials: "DH",
-      bio: "Synthesizing theoretical theories into stunning media digests, organizing knowledgebases, and maintaining VITMAS publications of mathematical research.",
-      stats: {
-        projects: "8+ Publications",
-        forte: "Scientific Literature",
-        commit: "Polished Flow",
-      },
-      favSong: "Mockingbird",
-      favArtist: "Eminem",
-      favEquation: "∫ e^(-x²) dx = √π",
-      favQuote: "Simplicity is the ultimate sophistication.",
     },
     {
       name: "Anirudha",
@@ -610,16 +536,6 @@ export default function Team() {
       github: "https://github.com/#",
       avatarGradient: "from-amber-600 to-pink-600",
       initials: "IB",
-      bio: "Fostering strategic communication grids with corporate entities, academic associations, and maintaining premium client liaisons.",
-      stats: {
-        projects: "16+ Partnerships",
-        forte: "Strategic Alliances",
-        commit: "Always Online",
-      },
-      favSong: "Math Symphony",
-      favArtist: "Mozart",
-      favEquation: "x² + y² = r²",
-      favQuote: "Curiosity is the engine of achievement.",
     },
     {
       name: "Abha Dongre",
@@ -629,16 +545,6 @@ export default function Team() {
       avatarGradient: "from-violet-600 to-purple-600",
       initials: "AM",
       photo: techImg,
-      bio: "Formulating operational ledger vectors, optimizing resources dynamically, and overseeing treasury models for large-scale technical symposiums.",
-      stats: {
-        projects: "14+ Managed",
-        forte: "Optimization Theory",
-        commit: "Rigorous Balance",
-      },
-      favSong: "Math Symphony",
-      favArtist: "Mozart",
-      favEquation: "x² + y² = r²",
-      favQuote: "Curiosity is the engine of achievement.",
     },
     {
       name: "Harshitha D",
@@ -648,16 +554,6 @@ export default function Team() {
       avatarGradient: "from-fuchsia-600 to-purple-800",
       initials: "SS",
       photo: projectsImg,
-      bio: "Spearheading UI layouts, custom graphic algorithms, and projecting the premium cryptographic aesthetic layout of VITMAS on digital fronts.",
-      stats: {
-        projects: "18+ Designs",
-        forte: "Vector Topography",
-        commit: "Creative Peak",
-      },
-      favSong: "Math Symphony",
-      favArtist: "Mozart",
-      favEquation: "e^(iπ) + 1 = 0",
-      favQuote: "The essence of mathematics lies in its freedom.",
     },
     {
       name: "Gargee Saha",
@@ -667,16 +563,6 @@ export default function Team() {
       avatarGradient: "from-indigo-600 to-cyan-600",
       initials: "MI",
       photo: editorialImg,
-      bio: "Probing modern horizons of deep reinforcement learning, neural differential integrations, and chairing mathematical research colloquiums.",
-      stats: {
-        projects: "6+ Deep Papers",
-        forte: "Neural Dynamics",
-        commit: "High Entropy",
-      },
-      favSong: "Math Symphony",
-      favArtist: "Mozart",
-      favEquation: "x² + y² = r²",
-      favQuote: "Curiosity is the engine of achievement.",
     },
     {
       name: "Roopesh",
@@ -686,16 +572,6 @@ export default function Team() {
       avatarGradient: "from-teal-600 to-emerald-600",
       initials: "RK",
       photo: eventImg,
-      bio: "Pioneering the web platforms, mathematical visualization systems, and computational servers with optimal low-latency algorithms.",
-      stats: {
-        projects: "20+ Deployments",
-        forte: "System Scalability",
-        commit: "Pure Terminal",
-      },
-      favSong: "Yennai Maatrum",
-      favArtist: "Anirudh Ravichander",
-      favEquation: "1 + w + w² = 0",
-      favQuote: "know what you are to whom before thinking about why",
     },
     {
       name: "Tanisi Choudhari",
@@ -705,16 +581,6 @@ export default function Team() {
       github: "https://github.com/#",
       avatarGradient: "from-cyan-600 to-teal-600",
       initials: "KP",
-      bio: "Governing real-time field deployments, resource allocations, and leading critical event logistics across departments.",
-      stats: {
-        projects: "11+ Operations",
-        forte: "Logistics Optimization",
-        commit: "Unwavering Focus",
-      },
-      favSong: "Math Symphony",
-      favArtist: "Mozart",
-      favEquation: "x² + y² = r²",
-      favQuote: "Curiosity is the engine of achievement.",
     },
     {
       name: "Nishmeethaa",
@@ -724,16 +590,6 @@ export default function Team() {
       photo: mgmtImg,
       avatarGradient: "from-violet-600 to-rose-600",
       initials: "RS",
-      bio: "Refining visual frontends, dynamic wireframe topologies, and crafting pixel-perfect interactive component systems for user delight.",
-      stats: {
-        projects: "14+ Blueprints",
-        forte: "Dynamic Interaction",
-        commit: "Aesthetic Rigor",
-      },
-      favSong: "Math Symphony",
-      favArtist: "Mozart",
-      favEquation: "x² + y² = r²",
-      favQuote: "Curiosity is the engine of achievement.",
     },
   ];
 
@@ -834,7 +690,6 @@ export default function Team() {
                     <TeamMemberCard
                       member={member}
                       index={originalIndex !== -1 ? originalIndex : rowIndex * 3}
-                      onSelect={setSelectedMember}
                     />
                   </div>
                 );
@@ -843,361 +698,6 @@ export default function Team() {
           ))}
         </div>
       </div>
-
-      {/* Interactive Dossier Modal Popup */}
-      <AnimatePresence>
-        {selectedMember && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md"
-            id="team-dossier-overlay"
-            onClick={() => setSelectedMember(null)}
-          >
-            <motion.div
-              initial={{ scale: 0.92, y: 30, opacity: 0 }}
-              animate={{ scale: 1, y: 0, opacity: 1 }}
-              exit={{ scale: 0.92, y: 30, opacity: 0 }}
-              transition={{ type: "spring", damping: 28, stiffness: 200 }}
-              className="relative max-h-[90vh] w-full max-w-4xl overflow-y-auto bg-[#FAF6EB] border-8 border-[#3D1A3C] rounded-[40px] p-5 md:p-10 shadow-2xl flex flex-col md:grid md:grid-cols-12 gap-6 text-left text-[#3D1A3C]"
-              onClick={(e) => e.stopPropagation()}
-              id="team-dossier-container"
-            >
-              {/* Absolute background hand-drawn doodle assets mapping the attached design */}
-
-              {/* 1. Flag pennants garland hanging top right */}
-              <svg
-                className="absolute top-2 right-12 w-48 h-24 text-[#3D1A3C]/85 pointer-events-none z-0"
-                viewBox="0 0 200 100"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-              >
-                <path d="M10,15 Q100,55 190,15" />
-                <polygon
-                  points="30,22 35,60 55,29"
-                  fill="#3D1A3C"
-                  fillOpacity="0.1"
-                />
-                <polygon points="30,22 35,60 55,29" />
-                <line x1="32" y1="32" x2="48" y2="42" />
-                <line x1="33" y1="42" x2="42" y2="48" />
-
-                <polygon
-                  points="70,30 80,72 95,32"
-                  fill="#3D1A3C"
-                  fillOpacity="0.1"
-                />
-                <polygon points="70,30 80,72 95,32" />
-                <line x1="72" y1="40" x2="88" y2="50" />
-
-                <polygon
-                  points="110,32 125,72 135,30"
-                  fill="#3D1A3C"
-                  fillOpacity="0.1"
-                />
-                <polygon points="110,32 125,72 135,30" />
-                <line x1="112" y1="42" x2="128" y2="52" />
-
-                <polygon
-                  points="150,24 165,60 175,19"
-                  fill="#3D1A3C"
-                  fillOpacity="0.1"
-                />
-                <polygon points="150,24 165,60 175,19" />
-              </svg>
-
-              {/* 2. Hand-drawn mountains and flying birds */}
-              <svg
-                className="absolute left-[33%] top-[20%] w-28 h-14 text-[#3D1A3C]/75 pointer-events-none z-0 hidden sm:block"
-                viewBox="0 0 100 50"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-              >
-                <path d="M5,45 Q20,15 40,45" />
-                <path d="M30,45 Q48,22 65,45" />
-                <path d="M45,12 Q49,8 53,12 Q57,8 61,12" />
-                <path d="M63,18 Q66,15 69,18 Q72,15 75,18" />
-              </svg>
-
-              {/* 3. Squiggly curls in margins */}
-              <svg
-                className="absolute left-3 top-[35%] w-8 h-20 text-[#3D1A3C]/40 pointer-events-none z-0"
-                viewBox="0 0 30 100"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-              >
-                <path d="M5,10 C22,10 27,24 12,34 C-3,44 27,54 12,68 C-3,82 22,92 12,102" />
-              </svg>
-
-              {/* 4. Swirl and stars bottom left */}
-              <svg
-                className="absolute left-6 bottom-4 w-12 h-12 text-[#3D1A3C]/60 pointer-events-none z-0"
-                viewBox="0 0 50 50"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.6"
-              >
-                <path d="M10,40 A 15,15 0 1,1 40,40 A 12,12 0 1,1 20,30" />
-              </svg>
-
-              {/* Close Button */}
-              <button
-                onClick={() => setSelectedMember(null)}
-                className="absolute top-6 right-6 z-40 p-2 text-[#3D1A3C]/70 hover:text-[#3D1A3C] bg-[#3D1A3C]/10 hover:bg-[#3D1A3C]/20 rounded-full border border-[#3D1A3C]/20 transition-all cursor-pointer shadow-sm"
-                id="team-modal-close"
-              >
-                <X className="w-5 h-5 stroke-[2.5]" />
-              </button>
-
-              {/* Header Title block */}
-              <div className="col-span-12 relative z-10 select-none pb-2">
-                <h2 className="font-display font-black text-4xl sm:text-6xl tracking-wider text-[#3D1A3C] uppercase leading-[0.9] mb-1">
-                  {selectedMember.name}
-                </h2>
-                <h3 className="font-doodle text-lg sm:text-2xl font-black tracking-widest text-[#542d54] uppercase">
-                  {selectedMember.role}
-                </h3>
-                {/* Wavy divider line doodle */}
-                <div className="w-64 max-w-full h-3 text-[#3D1A3C]/70 mt-3 select-none">
-                  <svg
-                    className="w-full h-full"
-                    viewBox="0 0 300 12"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                  >
-                    <path d="M 5,6 Q 75,10 150,4 T 295,8" />
-                    <path d="M 12,9 Q 100,5 200,9 T 288,7" />
-                  </svg>
-                </div>
-              </div>
-
-              {/* Left Column: Favourites Card */}
-              <div className="col-span-12 md:col-span-6 flex flex-col justify-between relative z-10">
-                <div className="bg-[#2E112D] border-4 border-[#3D1A3C] rounded-[32px] p-6 shadow-xl flex flex-col justify-between h-full min-h-[380px]">
-                  {/* Card Title "FAVOURITES" */}
-                  <div className="font-handwritten text-4xl text-[#FAF6EB] font-black tracking-widest text-center mb-6 select-none">
-                    FAVOURITES
-                  </div>
-
-                  <div className="space-y-6 flex-grow flex flex-col justify-around">
-                    {/* Item 1: Song */}
-                    <div className="flex gap-4 items-center">
-                      <div className="w-12 h-12 flex-shrink-0 flex items-center justify-center text-[#FAF6EB] bg-white/5 rounded-2xl border border-white/10 shadow-inner">
-                        <svg
-                          className="w-8 h-8"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <rect x="5" y="2" width="14" height="20" rx="3" />
-                          <line x1="5" y1="14" x2="19" y2="14" />
-                          <circle cx="12" cy="8" r="3" />
-                          <circle cx="12" cy="18" r="3.5" />
-                          <circle cx="12" cy="18" r="1" fill="currentColor" />
-                        </svg>
-                      </div>
-                      <div className="flex flex-col text-[#FAF6EB]">
-                        <span className="font-serif-italic font-bold text-xl leading-tight tracking-wide italic">
-                          {selectedMember.favSong || "Yennai Maatrum"}
-                        </span>
-                        <span className="font-handwritten text-lg opacity-85 mt-0.5">
-                          - {selectedMember.favArtist || "Anirudh Ravichander"}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Item 2: Equation */}
-                    <div className="flex gap-4 items-center">
-                      <div className="w-12 h-12 flex-shrink-0 flex items-center justify-center text-[#FAF6EB] bg-white/5 rounded-2xl border border-white/10 shadow-inner">
-                        <svg
-                          className="w-8 h-8"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-                          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
-                          <path d="M10 8 l2 4 l3 -6 h3" strokeWidth="2" />
-                        </svg>
-                      </div>
-                      <div className="font-display font-bold text-xl sm:text-2xl text-[#FAF6EB] tracking-wider italic">
-                        {selectedMember.favEquation || "1 + w + w² = 0"}
-                      </div>
-                    </div>
-
-                    {/* Item 3: Quote */}
-                    <div className="flex gap-4 items-center">
-                      <div className="w-12 h-12 flex-shrink-0 flex items-center justify-center text-[#FAF6EB] bg-white/5 rounded-2xl border border-white/10 shadow-inner">
-                        <span className="text-4xl font-serif-italic font-black text-[#FAF6EB]/60 select-none">
-                          “
-                        </span>
-                      </div>
-                      <div className="font-handwritten text-xl text-[#FAF6EB]/95 leading-tight italic max-w-xs">
-                        &ldquo;
-                        {selectedMember.favQuote ||
-                          "know what you are to whom before thinking about why"}
-                        &rdquo;
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Favourites profile avatar and social links bottom row */}
-                  <div className="flex items-center justify-between mt-6 pt-4 border-t border-white/10 w-full">
-                    <div className="relative flex items-center gap-3">
-                      {/* Leaf sprouts doodle background and round mini avatar */}
-                      <div className="absolute -left-3 -top-3 w-16 h-16 pointer-events-none text-[#FAF6EB]/15 z-0">
-                        <svg
-                          className="w-full h-full"
-                          viewBox="0 0 40 40"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                        >
-                          <path d="M15,25 Q5,15 12,5" />
-                          <path d="M12,5 Q18,12 15,25" />
-                          <path d="M15,25 Q28,18 32,10" />
-                          <path d="M32,10 Q25,22 15,25" />
-                        </svg>
-                      </div>
-                      <div className="relative w-11 h-11 rounded-full border-2 border-[#FAF6EB]/40 overflow-hidden z-10 bg-black">
-                        <img
-                          src={temporaryProfileImg}
-                          alt={selectedMember.name}
-                          className="w-full h-full object-cover"
-                          referrerPolicy="no-referrer"
-                        />
-                      </div>
-                      <div className="absolute -bottom-1 left-7 bg-purple-600 border border-white/20 p-1 rounded-full z-20 shadow cursor-pointer">
-                        <svg
-                          className="w-3 h-3 text-white"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2.5"
-                        >
-                          <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67" />
-                        </svg>
-                      </div>
-                    </div>
-
-                    <div className="flex gap-3 z-10">
-                      <a
-                        href={selectedMember.linkedin}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="text-white/60 hover:text-white transition-colors bg-white/5 hover:bg-white/10 p-2 rounded-xl border border-white/10"
-                      >
-                        <Link className="w-4 h-4 text-[#0077b5]" />
-                      </a>
-                      <a
-                        href={selectedMember.github}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="text-white/60 hover:text-white transition-colors bg-white/5 hover:bg-white/10 p-2 rounded-xl border border-white/10"
-                      >
-                        <GitBranch className="w-4 h-4 text-[#ffffff]" />
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Right Column: Standing Photo & Doodles */}
-              <div className="col-span-12 md:col-span-6 flex items-center justify-center relative min-h-[360px] z-10">
-                {/* Crown doodle sitting right on his head */}
-                <div className="absolute -top-12 left-[48%] -translate-x-1/2 w-16 h-12 text-[#3D1A3C] rotate-[8deg] z-20 select-none">
-                  <svg
-                    className="w-full h-full"
-                    viewBox="0 0 100 80"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path
-                      d="M10,65 L15,30 L38,48 L50,18 L62,48 L85,30 L90,65 Z"
-                      fill="#3D1A3C"
-                      fillOpacity="0.08"
-                    />
-                    <circle cx="15" cy="30" r="3.5" fill="currentColor" />
-                    <circle cx="50" cy="18" r="3.5" fill="currentColor" />
-                    <circle cx="85" cy="30" r="3.5" fill="currentColor" />
-                    <path d="M10,65 Q50,70 90,65" strokeWidth="2.5" />
-                    <path d="M12,60 Q50,65 88,60" strokeWidth="1.5" />
-                  </svg>
-                </div>
-
-                {/* Stars near crown */}
-                <div className="absolute top-[-8px] right-[15%] w-6 h-6 text-[#3D1A3C]/50 pointer-events-none z-0">
-                  <svg
-                    className="w-full h-full"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <path
-                      d="M12,2 L14,9 L21,9 L15,13 L17,20 L12,16 L7,20 L9,13 L3,9 L10,9 Z"
-                      fill="currentColor"
-                    />
-                  </svg>
-                </div>
-
-                {/* Free ground standing shadow line under the frame */}
-                <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-52 h-8 text-[#3D1A3C]/25 pointer-events-none select-none z-0">
-                  <svg
-                    className="w-full h-full"
-                    viewBox="0 0 200 40"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                  >
-                    <path d="M 10,25 Q 100,45 190,25" />
-                    <path d="M 20,30 Q 100,50 180,30" />
-                  </svg>
-                </div>
-
-                {/* Standing Frame: Beautifully styled rectangular portrait with thick purple border matching Image 1 */}
-                <div className="relative w-full max-w-[290px] aspect-[11/14] rounded-2xl overflow-hidden border-4 border-[#3D1A3C] shadow-xl transform rotate-[-1deg] transition-all duration-300 hover:rotate-0 hover:scale-[1.02] bg-[#FAF6EB]">
-                  <img
-                    src={temporaryProfileImg}
-                    alt={selectedMember.name}
-                    className="w-full h-full object-cover"
-                    referrerPolicy="no-referrer"
-                  />
-                  {/* Subtle leafy doodle overlays at the bottom-left edges */}
-                  <div className="absolute bottom-2 left-2 pointer-events-none text-[#FAF6EB]/40">
-                    <svg
-                      className="w-8 h-8"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                    >
-                      <path d="M2,22 Q10,12 22,2" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </section>
   );
 }

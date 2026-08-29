@@ -4,15 +4,10 @@ import wormy from '../assets/wormhole.png';
 
 export default function Home() {
   return (
-    <div
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
-      style={{
-        background:
-          'radial-gradient(500px circle at top left, #6B0884 0%, transparent 75%), radial-gradient(500px circle at bottom right, #6B0884 0%, transparent 65%), #11001B',
-      }}
-    >
-      <img src={circleImg} alt="Circle" className="absolute right-0 bottom-0 w-64" />
-      <img src={wormy} alt="Wormhole" className="absolute left-0 bottom-0 w-64" />
+    <div className="relative flex flex-1 min-h-[85vh] items-center justify-center overflow-hidden bg-transparent">
+      {/* No solid background — lets Layout's About backdrop (blur + dot grid) show through seamlessly to footer */}
+      <img src={circleImg} alt="Circle" className="absolute right-0 bottom-0 w-64 pointer-events-none select-none" />
+      <img src={wormy} alt="Wormhole" className="absolute left-0 bottom-0 w-64 pointer-events-none select-none" />
 
       <main className="flex flex-col items-center text-center px-6">
         <h1
